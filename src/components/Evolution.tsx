@@ -10,7 +10,7 @@ const Evolution = () => {
   const { ref: tableRef, isVisible: tableVisible } = useScrollAnimation();
 
   return (
-    <section className="py-6 sm:py-10 lg:py-14 px-4 relative z-10">
+    <section className="pt-0 pb-6 sm:pb-10 lg:pb-14 px-4 relative z-10">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div 
