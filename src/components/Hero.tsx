@@ -15,7 +15,9 @@ const Hero = () => {
         }`}
       >
         {/* Business Day 2025 */}
-        <p className="text-foreground/80 text-sm sm:text-base mb-4 tracking-wide">Business Day 2025</p>
+        <p className="text-primary font-semibold text-sm sm:text-base mb-4 tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(255,59,59,0.6)]">
+          Business Day 2025
+        </p>
         
         {/* Logos - Smaller */}
         <div className="flex items-center justify-center gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 flex-wrap">
