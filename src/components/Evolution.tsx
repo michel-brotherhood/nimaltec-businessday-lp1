@@ -37,13 +37,13 @@ const Evolution = () => {
           <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-10">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
               O coletor de dados MC33 estabeleceu um padrão de confiança e eficiência em operações por anos. 
-              No entanto, a evolução da tecnologia móvel corporativa apresenta um novo patamar de produtividade, 
-              robustez e conectividade. A nova geração de dispositivos não é apenas uma atualização, mas uma 
+              Agora, o MC34 representa a evolução da tecnologia móvel corporativa, apresentando um novo patamar de produtividade, 
+              robustez e conectividade. Esta nova geração não é apenas uma atualização, mas uma 
               transformação completa na capacidade de sua equipe, projetada para os desafios do presente e as 
               demandas do futuro.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Para ilustrar o salto de performance, apresentamos um comparativo direto que detalha as principais 
+              Para ilustrar o salto de performance do MC33 para o MC34, apresentamos um comparativo direto que detalha as principais 
               diferenças técnicas e seus benefícios práticos.
             </p>
           </div>
