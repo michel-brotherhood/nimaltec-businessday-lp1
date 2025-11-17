@@ -8,48 +8,53 @@ const Evolution = () => {
   const { ref: tableRef, isVisible: tableVisible } = useScrollAnimation();
 
   return (
-    <section className="py-20 px-4 bg-gradient-dark">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 relative z-10">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div 
           ref={headerRef}
-          className={`text-center mb-16 transition-all duration-1000 ${
+          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Do Confiável ao Imbatível: A Evolução que Sua Operação Exige
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-foreground px-4">
+            Do Confiável ao Imbatível:
+          </h2>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent px-4">
+            A Evolução que Sua Operação Exige
           </h2>
         </div>
 
         {/* Introduction */}
         <div 
           ref={contentRef}
-          className={`max-w-5xl mx-auto mb-16 transition-all duration-1000 delay-200 ${
+          className={`max-w-5xl mx-auto mb-12 sm:mb-16 transition-all duration-1000 delay-200 ${
             contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-            O coletor de dados MC33 estabeleceu um padrão de confiança e eficiência em operações por anos. 
-            No entanto, a evolução da tecnologia móvel corporativa apresenta um novo patamar de produtividade, 
-            robustez e conectividade. A nova geração de dispositivos não é apenas uma atualização, mas uma 
-            transformação completa na capacidade de sua equipe, projetada para os desafios do presente e as 
-            demandas do futuro.
-          </p>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Para ilustrar o salto de performance, apresentamos um comparativo direto que detalha as principais 
-            diferenças técnicas e seus benefícios práticos.
-          </p>
+          <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-10">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+              O coletor de dados MC33 estabeleceu um padrão de confiança e eficiência em operações por anos. 
+              No entanto, a evolução da tecnologia móvel corporativa apresenta um novo patamar de produtividade, 
+              robustez e conectividade. A nova geração de dispositivos não é apenas uma atualização, mas uma 
+              transformação completa na capacidade de sua equipe, projetada para os desafios do presente e as 
+              demandas do futuro.
+            </p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Para ilustrar o salto de performance, apresentamos um comparativo direto que detalha as principais 
+              diferenças técnicas e seus benefícios práticos.
+            </p>
+          </div>
         </div>
 
         {/* Comparison Table */}
         <div 
           ref={tableRef}
-          className={`mb-16 overflow-x-auto transition-all duration-1000 delay-400 ${
+          className={`mb-12 sm:mb-16 overflow-x-auto transition-all duration-1000 delay-400 ${
             tableVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="bg-card border border-border rounded-xl overflow-hidden">
+          <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl overflow-hidden min-w-[800px]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
@@ -124,7 +129,7 @@ const Evolution = () => {
 
         {/* Conclusion */}
         <div className="max-w-5xl mx-auto">
-          <div className="bg-card border border-border rounded-xl p-8 md:p-12">
+          <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-12">
             <h3 className="text-3xl font-bold text-foreground mb-6">
               Conclusão: Um Salto Quântico em Performance
             </h3>

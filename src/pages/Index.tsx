@@ -1,16 +1,19 @@
 import Hero from "@/components/Hero";
 import Evolution from "@/components/Evolution";
+import Statistics from "@/components/Statistics";
+import Footer from "@/components/Footer";
+import VideoBackground from "@/components/VideoBackground";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Hero />
-      <Evolution />
-      <footer className="border-t border-border py-8 px-4 text-center bg-background">
-        <p className="text-muted-foreground">
-          © 2025 Nimal Tecnologia. Todos os direitos reservados.
-        </p>
-      </footer>
+      <VideoBackground />
+      <div className="relative z-10">
+        <Hero />
+        <Statistics />
+        <Evolution />
+        <Footer />
+      </div>
     </div>
   );
 };
