@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import nimalLogo from "@/assets/nimal-logo.png";
+import nimalLogo from "@/assets/nimal-logo-new.webp";
 import zebraLogo from "@/assets/zebra-logo.svg";
 
 const Footer = () => {
