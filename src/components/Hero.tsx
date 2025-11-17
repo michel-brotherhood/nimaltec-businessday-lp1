@@ -1,30 +1,35 @@
-import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import nimalLogo from "@/assets/nimal-logo.png";
+import zebraLogo from "@/assets/zebra-logo.svg";
+import techBackground from "@/assets/tech-background.jpg";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-dark">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-2 h-2 bg-tech-glow rounded-full animate-pulse" />
-          <div className="absolute top-40 right-20 w-2 h-2 bg-tech-glow rounded-full animate-pulse delay-300" />
-          <div className="absolute bottom-40 left-1/4 w-2 h-2 bg-tech-glow rounded-full animate-pulse delay-700" />
-          <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-tech-glow rounded-full animate-pulse delay-500" />
-        </div>
+      {/* Tech Background */}
+      <div className="absolute inset-0 bg-black">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: `url(${techBackground})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto text-center">
         {/* Logos */}
         <div className="flex items-center justify-center gap-8 mb-12 flex-wrap">
-          <div className="text-4xl font-bold text-foreground tracking-wider">
-            nimal<span className="text-primary">tecnologia</span>
-          </div>
-          <div className="w-px h-12 bg-border hidden sm:block" />
-          <div className="text-4xl font-bold text-primary tracking-wider">
-            ZEBRA
-          </div>
+          <img 
+            src={nimalLogo} 
+            alt="Nimal Tecnologia" 
+            className="h-12 md:h-16 object-contain"
+          />
+          <div className="w-px h-12 bg-border/50 hidden sm:block" />
+          <img 
+            src={zebraLogo} 
+            alt="Zebra" 
+            className="h-10 md:h-12 object-contain brightness-0 invert"
+          />
         </div>
 
         {/* Main Title */}
