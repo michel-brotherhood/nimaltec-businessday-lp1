@@ -46,7 +46,7 @@ const Counter = ({ end, duration, suffix, label }: CounterProps) => {
         setCount(end);
         clearInterval(timer);
       } else {
-        setCount(Math.floor(current));
+        setCount(current);
       }
     }, 16);
 
@@ -56,7 +56,7 @@ const Counter = ({ end, duration, suffix, label }: CounterProps) => {
   return (
     <div ref={ref} className="text-center">
       <div className="text-5xl md:text-6xl font-bold text-primary mb-2">
-        {count}{suffix}
+        {end % 1 !== 0 ? count.toFixed(1) : Math.floor(count)}{suffix}
       </div>
       <div className="text-lg text-muted-foreground">{label}</div>
     </div>
@@ -79,9 +79,9 @@ const Statistics = () => {
             Números que Comprovam a Evolução
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            <Counter end={60} duration={2000} suffix="%" label="Aumento de Performance" />
-            <Counter end={40} duration={2000} suffix="%" label="Redução de Custos" />
-            <Counter end={99} duration={2000} suffix="%" label="Uptime Garantido" />
+            <Counter end={2.5} duration={2000} suffix="x mais" label="processamento" />
+            <Counter end={43} duration={2000} suffix="% maior" label="alcance de leitura" />
+            <Counter end={50} duration={2000} suffix="% mais" label="Memória RAM" />
           </div>
         </div>
       </div>
