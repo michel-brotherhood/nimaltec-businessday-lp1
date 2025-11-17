@@ -1,6 +1,7 @@
 import mc33Image from "@/assets/mc33.webp";
 import mc34Image from "@/assets/mc34.webp";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import Statistics from "./Statistics";
 
 const Evolution = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
@@ -127,8 +128,11 @@ const Evolution = () => {
           </div>
         </div>
 
+        {/* Statistics */}
+        <Statistics />
+
         {/* Conclusion */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto mt-12 sm:mt-16">
           <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-12">
             <h3 className="text-3xl font-bold text-foreground mb-6">
               Conclusão: Um Salto Quântico em Performance

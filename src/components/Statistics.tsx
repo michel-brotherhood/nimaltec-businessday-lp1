@@ -67,7 +67,7 @@ const Statistics = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="py-20 px-4 relative z-10">
+    <div className="py-12 sm:py-16 lg:py-20 px-4">
       <div 
         ref={ref}
         className={`max-w-6xl mx-auto transition-all duration-1000 ${
@@ -85,7 +85,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
