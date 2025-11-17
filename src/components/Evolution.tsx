@@ -1,24 +1,15 @@
 import mc33Image from "@/assets/mc33.webp";
 import mc34Image from "@/assets/mc34.webp";
 import showcaseVideo from "@/assets/showcase-video.mp4";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Statistics from "./Statistics";
 
 const Evolution = () => {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
-  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation();
-  const { ref: tableRef, isVisible: tableVisible } = useScrollAnimation();
 
   return (
     <section className="pt-0 pb-6 sm:pb-10 lg:pb-14 px-4 relative z-10">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div 
-          ref={headerRef}
-          className={`text-center mb-12 sm:mb-16 pb-4 transition-all duration-1000 ${
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
+        <div className="text-center mb-12 sm:mb-16 pb-4">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-foreground px-4 leading-tight">
             Do Confiável ao Imbatível:
           </h2>
@@ -28,12 +19,7 @@ const Evolution = () => {
         </div>
 
         {/* Introduction */}
-        <div 
-          ref={contentRef}
-          className={`max-w-5xl mx-auto mb-12 sm:mb-16 transition-all duration-1000 delay-200 ${
-            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
+        <div className="max-w-5xl mx-auto mb-12 sm:mb-16">
           <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-10">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
               O coletor de dados MC33 estabeleceu um padrão de confiança e eficiência em operações por anos. 
@@ -50,12 +36,7 @@ const Evolution = () => {
         </div>
 
         {/* Comparison Table */}
-        <div 
-          ref={tableRef}
-          className={`mb-12 sm:mb-16 transition-all duration-1000 delay-400 ${
-            tableVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'
-          }`}
-        >
+        <div className="mb-12 sm:mb-16">
           {/* Desktop Table */}
           <div className="hidden lg:block overflow-x-auto">
             <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl overflow-hidden min-w-[800px]">
