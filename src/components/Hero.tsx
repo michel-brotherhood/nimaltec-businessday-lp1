@@ -89,8 +89,8 @@ const Hero = () => {
           IA aplicada à operação — logística, indústria e supply chain.
         </p>
 
-        {/* Inline anchor nav on mobile only — replaces fixed bar while in hero */}
-        <div className="sm:hidden mt-8 flex justify-center">
+        {/* Inline anchor nav for mobile + tablet — replaces fixed bar while hero is in view */}
+        <div className="lg:hidden mt-7 sm:mt-10 md:mt-12 flex justify-center">
           <NavPill active={active} />
         </div>
       </div>
