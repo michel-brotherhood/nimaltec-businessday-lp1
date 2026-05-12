@@ -146,7 +146,7 @@ const Evolution = () => {
                 advantage: "Eficiência Ampliada: Captura de códigos de barras a curtas e longas distâncias, ideal para armazéns altos e pátios (yards), minimizando movimentação e fadiga do operador."
               }
             ].map((item, index) => (
-              <div key={index} className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-5 sm:p-6 hover:border-accent transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,59,59,0.3)]">
+              <div key={index} className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-5 sm:p-6 hover:border-accent transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.3)]">
                 <h4 className="text-lg sm:text-xl font-bold text-foreground mb-4">{item.feature}</h4>
                 
                 <div className="grid grid-cols-2 gap-4 mb-4">
@@ -180,7 +180,7 @@ const Evolution = () => {
 
         {/* Video Showcase */}
         <div className="max-w-5xl mx-auto mt-12 sm:mt-16 mb-12 sm:mb-16">
-          <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl overflow-hidden hover:scale-105 hover:shadow-[0_0_30px_rgba(255,59,59,0.3)] transition-all duration-300">
+          <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl overflow-hidden hover:scale-105 hover:shadow-[0_0_30px_rgba(204,255,0,0.3)] transition-all duration-300">
             <video 
               autoPlay 
               loop 

@@ -15,7 +15,7 @@ const Hero = () => {
         }`}
       >
         {/* Business Day 2025 */}
-        <p className="text-primary font-semibold text-sm sm:text-base mb-4 tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(255,59,59,0.6)]">
+        <p className="text-primary font-semibold text-sm sm:text-base mb-4 tracking-[0.2em] uppercase drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
           Business Day 2025
         </p>
         
@@ -36,7 +36,7 @@ const Hero = () => {
 
         {/* Main Title with Animation */}
         <h1 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent leading-tight animate-pulse-slow transition-all duration-700 ${
-          isVisible ? 'drop-shadow-[0_0_25px_rgba(255,59,59,0.8)] animate-glow' : ''
+          isVisible ? 'drop-shadow-[0_0_25px_rgba(204,255,0,0.8)] animate-glow' : ''
         }`}>
           Novidades Zebra
         </h1>
