@@ -33,14 +33,20 @@ const schema = z.object({
 type Props = { open: boolean; onOpenChange: (v: boolean) => void };
 
 const RegisterDialog = ({ open, onOpenChange }: Props) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [jobTitle, setJobTitle] = useState<string>("");
   const [customJobTitle, setCustomJobTitle] = useState<string>("");
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({});
+    if (!consent) {
+      setErrors({ consent: "É necessário aceitar a Política de Privacidade." });
+      return;
+    }
     const fd = new FormData(e.currentTarget);
     const finalJobTitle = jobTitle === "Outro" ? customJobTitle.trim() : jobTitle;
     const raw = {
