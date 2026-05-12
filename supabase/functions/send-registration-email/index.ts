@@ -34,20 +34,14 @@ serve(async (req) => {
       });
     }
 
-    // NOTE: Resend está em modo teste — só permite envio ao e-mail dono da conta.
-    // Enquanto o domínio nimaltecnologia.com.br não for verificado em resend.com/domains,
-    // enviamos apenas uma notificação interna ao owner. Depois de verificar, troque
-    // VERIFIED_DOMAIN para true, ajuste FROM e reative o envio ao participante.
-    const VERIFIED_DOMAIN = false;
-    const OWNER_EMAIL = "michelmkt90@gmail.com";
+    // Domínio nimaltecnologia.com.br verificado na Resend.
     const TEAM_EMAIL = "atendimento@nimaltecnologia.com.br";
-    const FROM = VERIFIED_DOMAIN
-      ? "Nimal Tecnologia <atendimento@nimaltecnologia.com.br>"
-      : "Nimal Tecnologia <onboarding@resend.dev>";
+    const BCC_EMAIL = "michel@idlab.art.br";
+    const FROM = "Nimal Tecnologia <atendimento@nimaltecnologia.com.br>";
 
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background:#0a0a0a; color:#fff; padding:24px; border-radius:12px;">
-        <h1 style="color:#CCFF00;">Nova inscrição · Business Day 2026</h1>
+        <h1 style="color:#CCFF00;">Inscrição confirmada</h1>
         <p>Olá <strong>${escape(name)}</strong>,</p>
         <p>Recebemos sua inscrição no <strong>Business Day · Nimal &amp; Zebra 2026</strong>.</p>
         <ul style="line-height:1.8;">
@@ -70,21 +64,14 @@ serve(async (req) => {
       </div>
     `;
 
-    const payload = VERIFIED_DOMAIN
-      ? {
-          from: FROM,
-          to: [email],
-          cc: [TEAM_EMAIL],
-          subject: "Inscrição confirmada · Business Day Nimal & Zebra 2026",
-          html,
-        }
-      : {
-          // Modo teste: Resend só aceita o e-mail dono da conta como destinatário.
-          from: FROM,
-          to: [OWNER_EMAIL],
-          subject: `[Nova inscrição] ${name} · ${company}`,
-          html,
-        };
+    const payload = {
+      from: FROM,
+      to: [email],
+      cc: [TEAM_EMAIL],
+      bcc: [BCC_EMAIL],
+      subject: "Inscrição confirmada · Business Day Nimal & Zebra 2026",
+      html,
+    };
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
