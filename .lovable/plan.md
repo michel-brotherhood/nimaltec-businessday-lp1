@@ -1,48 +1,72 @@
-# Nova seção: Portfólio de Dispositivos Zebra
+## Reestruturação da landing — ajustes do briefing (áudio do Michel)
 
-Adicionar uma seção apresentando os 7 dispositivos (MC34, MC94, TC501, TC701, ET401, WS300, TC22R) com imagem, nome, categoria e descrição curta — posicionada **logo após a seção "Evolução"** (comparativo MC33 vs MC34), reforçando a narrativa "do hardware confiável ao ecossistema completo de IA aplicada".
+Aplicar todos os ajustes ditados, reorganizando a página para focar em **Nimal & Zebra 2026 · IA aplicada à operação** e o ecossistema completo de dispositivos (não mais no comparativo MC33 vs MC34).
 
-## O que será criado
+### 1. Hero (`src/components/Hero.tsx`)
+- Promover **"Nimal & Zebra 2026"** como título principal em destaque (grande, gradiente neon).
+- Adicionar **ícone/símbolo de IA** (lucide `Sparkles` ou `BrainCircuit`) ao lado do título.
+- Substituir o H1 atual ("Não é só sobre coletar dados…") por:
+  - **Nimal & Zebra 2026** (display, gradiente verde neon + negrito)
+  - **IA aplicada à operação** (subtítulo médio, verde neon, negrito) — esta é a frase que precisa chamar a atenção.
+- Manter "Não é só sobre coletar dados. É sobre transformar dados em decisões." como linha de apoio menor, **quase transparente** (`text-muted-foreground/60`).
+- Adicionar **botão CTA "Faça sua inscrição"** logo abaixo do título (verde neon, clicável). Por enquanto abre `mailto:` ou link placeholder — Zebra fornecerá o link real depois (confirmar com usuário; default: placeholder `#inscricao`).
+- Manter logos Nimal/Zebra e cards de canto.
 
-1. **Assets** — copiar as 7 imagens enviadas (`MC34-2.webp`, `MC94-2.webp`, `TC501-2.webp`, `TC701-2.webp`, `ET401-2.webp`, `WS300-2.webp`, `TC22R-2.webp`) para `src/assets/` com nomes limpos (`mc34.webp` já existe — reutilizar; demais como `mc94.webp`, `tc501.webp`, etc.).
+### 2. Schedule (`src/components/Schedule.tsx`)
+- Alterar o item das **13h45**: trocar `"Painel Técnico: Do MC33 ao MC34"` por **"Novidades Zebra 2026"** (manter horário e descrição adaptada).
+- Layout e cores permanecem (já aprovados).
 
-2. **Novo componente** `src/components/Devices.tsx`:
-   - Header da seção: título "O Ecossistema Completo para sua Operação Inteligente" + subtítulo conectando ao tema (IA aplicada sobre hardware confiável).
-   - Grid responsivo de cards: 1 col (mobile), 2 cols (tablet), 3 cols (desktop), com o 7º card centralizado na última linha.
-   - Cada card contém:
-     - Imagem do dispositivo (object-contain, ~h-48)
-     - Badge com categoria (ex: "Ultra-Rugged", "AI-Powered", "Wearable", "RFID Integrado")
-     - Nome do modelo (destaque tipográfico)
-     - Descrição curta (2–3 linhas, extraída do `.md` enviado)
-     - Lista compacta de 2–3 specs-chave (ícones + texto)
-   - Hover: borda neon + leve scale + glow (consistente com Evolution).
-   - Animação de entrada via `useScrollAnimation` (fade/translate stagger).
+### 3. Remover seção Evolution comparativa
+- **Deletar** o componente `Evolution.tsx` da página (não renderizar mais), pois contém:
+  - Título "Do Confiável ao Imbatível"
+  - Texto sobre MC33/MC34
+  - Tabela/cards comparativos MC33 vs MC34
+  - Conclusão "Salto Quântico"
+- **Preservar** o componente `Statistics.tsx` (números) e o vídeo (`showcase-video.mp4`) — serão reutilizados como seções independentes.
 
-3. **Index.tsx** — adicionar `<section id="dispositivos"><Devices /></section>` entre Evolution e Location.
+### 4. Nova ordem das seções (`src/pages/Index.tsx`)
+```text
+1. Hero (Nimal & Zebra 2026 + CTA)
+2. Schedule (programação)
+3. Devices (ecossistema completo — 7 dispositivos, terminando em TC22R)
+4. Statistics (números que comprovam a evolução)
+5. Video (showcase)
+6. Location (como chegar)
+7. CTA "Te esperamos" + botão de inscrição
+8. FAQ
+9. Footer
+```
 
-4. **AnchorNav.tsx** — adicionar item "Dispositivos" (ícone `Smartphone` ou `Boxes` do lucide) ao array `sections`, mantendo a sincronização do scroll spy.
+### 5. Statistics como seção independente
+- Extrair `<Statistics />` do Evolution e renderizar como `<section id="numeros">` logo após Devices.
+- Adicionar header próprio: **"Números que comprovam a evolução"**.
 
-## Conteúdo dos cards (resumo do .md)
+### 6. Video como seção independente
+- Criar `src/components/VideoShowcase.tsx` com o `showcase-video.mp4` no mesmo card visual usado hoje no Evolution.
+- Renderizar como `<section id="video">` após Statistics.
 
-| Modelo | Categoria | Resumo |
-|---|---|---|
-| MC34 | Mobile Computer · Próxima geração | Snapdragon 8cx Gen 3, Wi-Fi 6E, 5G opcional, Android 13 + Zebra DNA |
-| MC94 | Ultra-Rugged | Backward compatible, versões freezer e non-incendive para áreas críticas |
-| TC501 | AI-Powered Touch | AMOLED 6", RFID UHF integrado, processamento de IA na borda |
-| TC701 | Ultra-Rugged AI | Queda de 12 ft, Wi-Fi 7, projetado para ambientes severos |
-| ET401 | Enterprise Tablet | 8"/10.1", IP68, Wi-Fi 7, ideal para campo e supervisão |
-| WS300 | Wearable | Hands-free, voice picking, otimizado para separação contínua |
-| TC22R | Touch + RFID | RFID integrado, leitura de 1.300 tags/s, display 6" FHD+ |
+### 7. Nova seção "Te esperamos" (`src/components/CallToAction.tsx`)
+- Bloco final antes do FAQ com:
+  - Título grande "Te esperamos no Business Day"
+  - Resumo curto (data, local, horário)
+  - **Botão CTA "Faça sua inscrição"** (mesmo do Hero)
 
-## Detalhes técnicos
+### 8. AnchorNav (`src/components/AnchorNav.tsx`)
+- Atualizar `sections` para a nova estrutura:
+  `Início → Agenda → Dispositivos → Números → Vídeo → Local → Inscrição → FAQ`
+- Remover o item "Evolução"; ajustar ícones (`BarChart3` para Números, `Play` para Vídeo, `Mail`/`Send` para Inscrição).
 
-- Tokens semânticos do design system (sem cores hardcoded): `bg-card/80`, `border-border`, `text-primary`, `text-accent`, `text-muted-foreground`.
-- Mesma linguagem visual de Evolution: `backdrop-blur-md`, `rounded-xl`, hover `shadow-[0_0_30px_rgba(204,255,0,0.3)]`.
-- Imagens com `loading="lazy"` e `alt` descritivo (SEO/a11y).
-- Sem alteração de business logic, sem novas dependências.
+### 9. CTA reutilizável
+- Criar `src/components/RegisterButton.tsx` (botão verde neon com glow) usado no Hero e na seção "Te esperamos".
+- href: placeholder `#` (a Zebra fornecerá o link de inscrição/dashboard depois).
 
-## Fora de escopo
+### Detalhes técnicos
+- Tokens semânticos do design system, sem cores hardcoded.
+- Sem novas dependências.
+- Manter animações `useScrollAnimation` existentes.
+- `Evolution.tsx` é apagado; `Statistics.tsx` permanece (importado direto pelo Index); `mc33.webp` permanece no assets caso seja reutilizado depois.
 
-- Página de detalhe por dispositivo.
-- Filtros/categorias interativas.
-- Reescrita do comparativo MC33 vs MC34 (permanece como está).
+### Fora de escopo
+- Integração real do formulário/dashboard de inscrição (link será fornecido pela Zebra).
+- Mudanças no FAQ, Footer, VideoBackground.
+- Mudanças no comparativo (será removido por completo, não editado).
