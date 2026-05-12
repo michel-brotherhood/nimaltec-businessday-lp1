@@ -22,9 +22,6 @@ type AdminUser = { user_id: string; email: string; created_at: string };
 const Admin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [canBootstrap, setCanBootstrap] = useState(false);
-  const [bootstrapping, setBootstrapping] = useState(false);
   const [rows, setRows] = useState<Registration[]>([]);
   const [admins, setAdmins] = useState<AdminUser[]>([]);
   const [newAdminEmail, setNewAdminEmail] = useState("");
@@ -55,20 +52,20 @@ const Admin = () => {
 
     try {
       const status = await callClaim({ action: "status" });
-      setIsAdmin(!!status.iAmAdmin);
-      setCanBootstrap(!!status.canBootstrap);
-
-      if (status.iAmAdmin) {
-        const [{ data: regs, error: regErr }, listRes] = await Promise.all([
-          supabase.from("registrations").select("*").order("created_at", { ascending: false }),
-          callClaim({ action: "list" }),
-        ]);
-        if (regErr) toast({ title: "Erro ao carregar inscrições", description: regErr.message, variant: "destructive" });
-        else setRows((regs ?? []) as Registration[]);
-        setAdmins(listRes.admins ?? []);
+      if (!status?.iAmAdmin) {
+        navigate("/auth", { replace: true });
+        return;
       }
+      const [{ data: regs, error: regErr }, listRes] = await Promise.all([
+        supabase.from("registrations").select("*").order("created_at", { ascending: false }),
+        callClaim({ action: "list" }),
+      ]);
+      if (regErr) toast({ title: "Erro ao carregar inscrições", description: regErr.message, variant: "destructive" });
+      else setRows((regs ?? []) as Registration[]);
+      setAdmins(listRes.admins ?? []);
     } catch (e) {
       toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
+      navigate("/auth", { replace: true });
     } finally {
       setLoading(false);
     }
@@ -79,20 +76,6 @@ const Admin = () => {
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate("/auth", { replace: true });
-  };
-
-  const claimFirstAdmin = async () => {
-    setBootstrapping(true);
-    try {
-      await callClaim({ action: "claim" });
-      toast({ title: "Pronto!", description: "Você é o primeiro admin." });
-      setLoading(true);
-      await loadAll();
-    } catch (e) {
-      toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
-    } finally {
-      setBootstrapping(false);
-    }
   };
 
   const promote = async (e: React.FormEvent) => {
@@ -127,37 +110,6 @@ const Admin = () => {
     return (
       <main className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-6 h-6 animate-spin text-primary" />
-      </main>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-background px-4">
-        <div className="max-w-md w-full text-center space-y-4 bg-card border border-border rounded-2xl p-8">
-          <Shield className="w-10 h-10 mx-auto text-primary" />
-          <h1 className="text-2xl font-bold">Acesso restrito</h1>
-          <p className="text-sm text-muted-foreground">
-            Sua conta ({userEmail}) ainda não tem permissão de administrador.
-          </p>
-          {canBootstrap ? (
-            <>
-              <p className="text-sm text-foreground">
-                Nenhum admin foi configurado ainda. Você pode se tornar o primeiro.
-              </p>
-              <Button onClick={claimFirstAdmin} disabled={bootstrapping} className="w-full">
-                {bootstrapping && <Loader2 className="w-4 h-4 animate-spin" />}
-                Tornar-me o primeiro admin
-              </Button>
-            </>
-          ) : (
-            <p className="text-xs text-muted-foreground">Solicite que um admin atribua a função à sua conta.</p>
-          )}
-          <Button onClick={signOut} variant="outline" className="w-full">
-            <LogOut className="w-4 h-4" /> Sair
-          </Button>
-          <Link to="/" className="block text-xs text-muted-foreground hover:text-primary">← Voltar ao site</Link>
-        </div>
       </main>
     );
   }
