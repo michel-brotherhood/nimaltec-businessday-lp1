@@ -1,72 +1,44 @@
-## Reestruturação da landing — ajustes do briefing (áudio do Michel)
+## Plano
 
-Aplicar todos os ajustes ditados, reorganizando a página para focar em **Nimal & Zebra 2026 · IA aplicada à operação** e o ecossistema completo de dispositivos (não mais no comparativo MC33 vs MC34).
+### 1. Cadastro do primeiro admin (sem migration)
 
-### 1. Hero (`src/components/Hero.tsx`)
-- Promover **"Nimal & Zebra 2026"** como título principal em destaque (grande, gradiente neon).
-- Adicionar **ícone/símbolo de IA** (lucide `Sparkles` ou `BrainCircuit`) ao lado do título.
-- Substituir o H1 atual ("Não é só sobre coletar dados…") por:
-  - **Nimal & Zebra 2026** (display, gradiente verde neon + negrito)
-  - **IA aplicada à operação** (subtítulo médio, verde neon, negrito) — esta é a frase que precisa chamar a atenção.
-- Manter "Não é só sobre coletar dados. É sobre transformar dados em decisões." como linha de apoio menor, **quase transparente** (`text-muted-foreground/60`).
-- Adicionar **botão CTA "Faça sua inscrição"** logo abaixo do título (verde neon, clicável). Por enquanto abre `mailto:` ou link placeholder — Zebra fornecerá o link real depois (confirmar com usuário; default: placeholder `#inscricao`).
-- Manter logos Nimal/Zebra e cards de canto.
+Criar uma **edge function `claim-admin`** que, usando service role key, atribui a função `admin` ao usuário logado **somente se ainda não existir nenhum admin no sistema** (auto-bootstrap do primeiro admin). Para qualquer admin posterior, a mesma função aceita um e-mail-alvo desde que o solicitante já seja admin.
 
-### 2. Schedule (`src/components/Schedule.tsx`)
-- Alterar o item das **13h45**: trocar `"Painel Técnico: Do MC33 ao MC34"` por **"Novidades Zebra 2026"** (manter horário e descrição adaptada).
-- Layout e cores permanecem (já aprovados).
+Na tela `/admin`, quando o usuário logado **não tem** role admin:
+- Mostra botão **"Tornar-me o primeiro admin"** se a tabela `user_roles` está vazia (a edge function valida e responde).
+- Caso contrário, mostra mensagem atual ("Acesso restrito").
 
-### 3. Remover seção Evolution comparativa
-- **Deletar** o componente `Evolution.tsx` da página (não renderizar mais), pois contém:
-  - Título "Do Confiável ao Imbatível"
-  - Texto sobre MC33/MC34
-  - Tabela/cards comparativos MC33 vs MC34
-  - Conclusão "Salto Quântico"
-- **Preservar** o componente `Statistics.tsx` (números) e o vídeo (`showcase-video.mp4`) — serão reutilizados como seções independentes.
+Quando o usuário **já é** admin, adiciona uma seção **"Gerenciar admins"** com:
+- Input de e-mail + botão **"Promover a admin"** (chama `claim-admin` com `targetEmail`).
+- Lista dos admins atuais com botão de remover (exceto a si mesmo).
 
-### 4. Nova ordem das seções (`src/pages/Index.tsx`)
-```text
-1. Hero (Nimal & Zebra 2026 + CTA)
-2. Schedule (programação)
-3. Devices (ecossistema completo — 7 dispositivos, terminando em TC22R)
-4. Statistics (números que comprovam a evolução)
-5. Video (showcase)
-6. Location (como chegar)
-7. CTA "Te esperamos" + botão de inscrição
-8. FAQ
-9. Footer
-```
+Sem migration: a função `claim-admin` usa o service role para inserir/deletar em `user_roles` diretamente.
 
-### 5. Statistics como seção independente
-- Extrair `<Statistics />` do Evolution e renderizar como `<section id="numeros">` logo após Devices.
-- Adicionar header próprio: **"Números que comprovam a evolução"**.
+### 2. Remover "inspecionar elemento" e referências a Lovable
 
-### 6. Video como seção independente
-- Criar `src/components/VideoShowcase.tsx` com o `showcase-video.mp4` no mesmo card visual usado hoje no Evolution.
-- Renderizar como `<section id="video">` após Statistics.
+**Bloquear inspeção (apenas dissuasivo — devtools nativas sempre podem ser abertas):**
+- Em `src/main.tsx` (somente em produção): bloquear menu de contexto (`contextmenu`), atalhos `F12`, `Ctrl/Cmd+Shift+I/J/C` e `Ctrl/Cmd+U`.
+- Não aplicar no preview do Lovable para não atrapalhar desenvolvimento.
 
-### 7. Nova seção "Te esperamos" (`src/components/CallToAction.tsx`)
-- Bloco final antes do FAQ com:
-  - Título grande "Te esperamos no Business Day"
-  - Resumo curto (data, local, horário)
-  - **Botão CTA "Faça sua inscrição"** (mesmo do Hero)
+**Remover referências a Lovable visíveis ao público:**
+- `index.html`: trocar `<meta name="twitter:site" content="@Lovable">` por `@nimaltecnologia`.
+- Esconder o badge do Lovable no site publicado (via publish settings).
+- Manter `lovable-tagger` no `vite.config.ts` (é dev-only e não vai para produção).
 
-### 8. AnchorNav (`src/components/AnchorNav.tsx`)
-- Atualizar `sections` para a nova estrutura:
-  `Início → Agenda → Dispositivos → Números → Vídeo → Local → Inscrição → FAQ`
-- Remover o item "Evolução"; ajustar ícones (`BarChart3` para Números, `Play` para Vídeo, `Mail`/`Send` para Inscrição).
+### 3. Hero — remover ícone Sparkles ao lado de "Nimal & Zebra 2026"
 
-### 9. CTA reutilizável
-- Criar `src/components/RegisterButton.tsx` (botão verde neon com glow) usado no Hero e na seção "Te esperamos".
-- href: placeholder `#` (a Zebra fornecerá o link de inscrição/dashboard depois).
+Em `src/components/Hero.tsx`:
+- Remover `<Sparkles ... />` (linha 83) e o import de `Sparkles` (linha 1).
+- Manter o título centralizado com o gradiente atual.
+
+---
 
 ### Detalhes técnicos
-- Tokens semânticos do design system, sem cores hardcoded.
-- Sem novas dependências.
-- Manter animações `useScrollAnimation` existentes.
-- `Evolution.tsx` é apagado; `Statistics.tsx` permanece (importado direto pelo Index); `mc33.webp` permanece no assets caso seja reutilizado depois.
 
-### Fora de escopo
-- Integração real do formulário/dashboard de inscrição (link será fornecido pela Zebra).
-- Mudanças no FAQ, Footer, VideoBackground.
-- Mudanças no comparativo (será removido por completo, não editado).
+- Edge function `claim-admin` (`supabase/functions/claim-admin/index.ts`): valida JWT do usuário, conta admins existentes; se 0 → promove o próprio usuário; se ≥1 → exige que o solicitante seja admin e aceita `targetEmail` para promover/rebaixar outros via `auth.admin.listUsers` + insert/delete em `user_roles`.
+- `Admin.tsx`: adicionar fluxo de bootstrap + seção "Gerenciar admins".
+- `main.tsx`: handler de `keydown`/`contextmenu` ativado por `import.meta.env.PROD`.
+
+### Riscos / observações
+- Bloquear devtools é **apenas cosmético** — qualquer dev consegue contornar. Útil só contra usuários casuais.
+- A função `claim-admin` é o único caminho de escalada de privilégio: a regra "primeiro admin" só funciona enquanto a tabela está vazia, então é segura mesmo sendo pública.
