@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { z } from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -88,6 +90,8 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
       (e.target as HTMLFormElement).reset();
       setJobTitle("");
       setCustomJobTitle("");
+      setConsent(false);
+      navigate("/obrigado");
     } catch (err) {
       console.error(err);
       toast({
@@ -169,6 +173,28 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
             </div>
           </div>
 
+          <div className="flex items-start gap-2">
+            <Checkbox
+              id="consent"
+              checked={consent}
+              onCheckedChange={(v) => setConsent(v === true)}
+              className="mt-0.5"
+            />
+            <Label htmlFor="consent" className="text-xs text-muted-foreground font-normal leading-snug cursor-pointer">
+              Li e aceito a{" "}
+              <Link
+                to="/privacidade"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Política de Privacidade
+              </Link>{" "}
+              e autorizo o uso dos meus dados para esta inscrição.
+            </Label>
+          </div>
+          {errors.consent && <p className="text-xs text-destructive -mt-2">{errors.consent}</p>}
+
           <Button
             type="submit"
             disabled={loading}
@@ -177,9 +203,6 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             {loading ? "Enviando..." : "Enviar inscrição"}
           </Button>
-          <p className="text-[11px] text-muted-foreground text-center">
-            Ao enviar, você concorda em receber comunicações sobre o evento.
-          </p>
         </form>
       </DialogContent>
     </Dialog>
