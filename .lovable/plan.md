@@ -1,23 +1,61 @@
-# Nova paleta de cores — Verde Neon
+# Plano: Reposicionamento Business Day – IA aplicada à operação
 
-Substituir a paleta atual (vermelho Nimal + ciano) pela nova identidade verde neon, mantendo o tema escuro com neutros (preto/branco/cinza) para garantir legibilidade.
+Manter a estrutura atual (Hero → Evolution com tabela MC33/MC34 → Statistics → Vídeo → Conclusão → Footer) e reposicionar o discurso para o tema **IA aplicada à operação**, adicionando dados do evento.
 
-## Paleta
+## 1. Hero (`src/components/Hero.tsx`)
 
-- Verde Neon `#CCFF00` → cor **primária** (títulos, destaques, CTAs, números das estatísticas, footer)
-- Verde Limão `#D4FF00` → **accent** (destaques secundários, valores MC34 na tabela, bullets)
-- Verde Escuro `#7CB342` → tom suave para hovers/elementos secundários
-- Neutros: preto/cinza escuro (background/cards) + branco (texto)
+- Trocar tagline "Business Day 2025" por **"Business Day · Nimal & Zebra"**.
+- Trocar título "Novidades Zebra" por algo alinhado ao novo conceito, por exemplo:
+  - Linha 1 (foreground): "Não é só sobre coletar dados."
+  - Linha 2 (gradiente verde neon, destaque): "É sobre transformar dados em decisões."
+- Subtítulo curto: "IA aplicada à operação — logística, indústria e supply chain."
+- Bloco de detalhes do evento logo abaixo do título (cards/pílulas com ícones lucide):
+  - 📅 30 de junho de 2026
+  - 🕛 12h às 15h
+  - 📍 Restaurante Fogo de Chão
+- Manter logos Nimal + Zebra e animações/glow já existentes em verde neon.
 
-## Onde aplicar
+## 2. Evolution (`src/components/Evolution.tsx`)
 
-1. **`src/index.css`** — atualizar tokens HSL: `--primary`, `--accent`, `--ring`, `--tech-glow`, gradientes, e o keyframe `glow` (rgba 255,59,59 → rgba do verde neon). Foregrounds em preto para contraste sobre verde neon.
-2. **`src/components/Hero.tsx`** — substituir `drop-shadow rgba(255,59,59,*)` por rgba verde neon (204,255,0).
-3. **`src/components/Evolution.tsx`** — substituir `shadow rgba(255,59,59,0.3)` por rgba verde neon.
-4. **Memória de design** — atualizar de "Nimal red" para "Verde Neon".
+Manter a tabela e os cards MC33 vs MC34 (sem alteração de dados), mas reescrever os textos de moldura para amarrar com IA:
 
-Componentes que usam tokens semânticos (`text-primary`, `text-accent`, etc.) atualizam automaticamente.
+- Título da seção: manter "Do Confiável ao Imbatível: A Evolução que Sua Operação Exige".
+- Parágrafo introdutório: reescrever conectando captura de dados → camada de IA sobre RFID/coletores/automação. Mensagem: a evolução do MC33 para o MC34 é a base de hardware que habilita decisões inteligentes em tempo real.
+- Conclusão: reforçar que hardware moderno + IA = decisões que impactam a operação.
+- Statistics, vídeo e tabela permanecem como estão.
+
+## 3. Footer (`src/components/Footer.tsx`)
+
+Adicionar uma nova coluna/bloco "Evento" (ou substituir a coluna "Realização" para acomodar) com:
+
+- Data: 30/06/2026
+- Horário: 12h às 15h
+- Local: Restaurante Fogo de Chão
+- Tema: IA aplicada à operação
+
+Manter contato, redes sociais e logos Nimal/Zebra como hoje. Atualizar o copyright para 2026 se fizer sentido.
+
+## 4. SEO (`index.html`)
+
+- `<title>`: "Business Day Nimal & Zebra · IA aplicada à operação"
+- `<meta description>`: frase curta com data, local e tema.
+
+## 5. Memória do projeto
+
+Atualizar:
+- `mem://index.md` Core: registrar tema IA + data 30/06/2026 + local Fogo de Chão.
+- `mem://project/landing-page-structure`: refletir Hero com bloco de detalhes do evento e Footer com bloco Evento.
+
+## Fora do escopo
+
+- Não alterar paleta (verde neon mantido).
+- Não trocar produtos: MC33 e MC34 permanecem.
+- Não adicionar formulários nem header de navegação.
+- Não mexer em VideoBackground, Statistics ou no vídeo showcase.
 
 ## Detalhes técnicos
 
-HSL aproximados: `#CCFF00` → `72 100% 50%`, `#D4FF00` → `70 100% 50%`, `#7CB342` → `88 50% 47%`. Foreground sobre verde: `0 0% 8%`.
+- Ícones de data/hora/local via `lucide-react` (`Calendar`, `Clock`, `MapPin`) — pacote já instalado.
+- Cards de evento no Hero usando `bg-card/80 backdrop-blur-md border border-border` para consistência visual.
+- Todos os destaques continuam em `text-primary` / gradiente `from-primary to-accent` (tokens semânticos, sem cores hardcoded).
+- Animações existentes (`animate-pulse-slow`, `animate-glow`, `useScrollAnimation`) preservadas.

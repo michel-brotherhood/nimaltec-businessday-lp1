@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram, Youtube, Linkedin, Calendar, Clock, MapPin, Sparkles } from "lucide-react";
 import nimalLogo from "@/assets/nimal-zebra-logos.png";
 import zebraLogo from "@/assets/zebra-logo.svg";
 
@@ -6,6 +6,30 @@ const Footer = () => {
   return (
     <footer className="relative z-10 border-t border-border bg-background/90 backdrop-blur-sm py-12 px-4">
       <div className="max-w-7xl mx-auto">
+        {/* Event Details */}
+        <div className="mb-10 bg-card/60 backdrop-blur-md border border-border rounded-xl p-6">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <h3 className="text-primary text-sm font-bold uppercase tracking-[0.2em]">
+              Business Day · IA aplicada à operação
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div className="flex items-center justify-center gap-2 text-muted-foreground">
+              <Calendar className="w-4 h-4 text-primary shrink-0" />
+              <span className="text-sm">30 de junho de 2026</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-muted-foreground">
+              <Clock className="w-4 h-4 text-primary shrink-0" />
+              <span className="text-sm">12h às 15h</span>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-muted-foreground">
+              <MapPin className="w-4 h-4 text-primary shrink-0" />
+              <span className="text-sm">Restaurante Fogo de Chão</span>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8">
           {/* Contact Section */}
           <div className="text-center md:text-left">
@@ -98,7 +122,7 @@ const Footer = () => {
               </a>
             </p>
             <p className="text-muted-foreground text-sm">
-              © 2025 Nimal Connect. Todos os direitos reservados.
+              © 2026 Nimal Connect. Todos os direitos reservados.
             </p>
           </div>
         </div>
