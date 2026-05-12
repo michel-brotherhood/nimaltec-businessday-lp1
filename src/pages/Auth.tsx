@@ -71,6 +71,11 @@ const Auth = () => {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        if (remember) {
+          sessionStorage.removeItem("nimal:ephemeral");
+        } else {
+          sessionStorage.setItem("nimal:ephemeral", "1");
+        }
         await checkAccess();
       }
     } catch (err) {
@@ -205,6 +210,16 @@ const Auth = () => {
                     autoComplete={mode === "signin" ? "current-password" : "new-password"}
                     className="bg-background/50 h-11"
                   />
+                </div>
+                <div className="flex items-center gap-2 pt-1">
+                  <Checkbox
+                    id="remember"
+                    checked={remember}
+                    onCheckedChange={(v) => setRemember(v === true)}
+                  />
+                  <Label htmlFor="remember" className="text-xs text-muted-foreground cursor-pointer select-none">
+                    Lembrar de mim neste dispositivo
+                  </Label>
                 </div>
                 <Button type="submit" disabled={loading} className="w-full h-11 font-semibold">
                   {loading && <Loader2 className="w-4 h-4 animate-spin" />}
