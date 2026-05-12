@@ -216,8 +216,8 @@ const Admin = () => {
           </div>
         </div>
 
-        {/* Manage admins */}
-        <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-2xl p-5 sm:p-6">
+        {isSuperAdmin && (
+        <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-2xl p-5 sm:p-6">{/* Manage admins */}
           <div className="flex items-center justify-between mb-5 gap-3 flex-wrap">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-primary" />
