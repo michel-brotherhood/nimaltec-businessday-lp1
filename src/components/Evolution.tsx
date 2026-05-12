@@ -22,15 +22,13 @@ const Evolution = () => {
         <div className="max-w-5xl mx-auto mb-12 sm:mb-16">
           <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-10">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4 sm:mb-6">
-              O coletor de dados MC33 estabeleceu um padrão de confiança e eficiência em operações por anos. 
-              Agora, o MC34 representa a evolução da tecnologia móvel corporativa, apresentando um novo patamar de produtividade, 
-              robustez e conectividade. Esta nova geração não é apenas uma atualização, mas uma 
-              transformação completa na capacidade de sua equipe, projetada para os desafios do presente e as 
-              demandas do futuro.
+              A Inteligência Artificial só entrega valor quando há dados confiáveis chegando do chão de operação em tempo real.
+              É aí que entra o hardware certo: o MC33 estabeleceu por anos o padrão de captura de dados em logística, indústria e supply chain.
+              Agora o MC34 eleva essa base, criando a fundação ideal para uma camada de IA sobre RFID, coletores e automação —
+              transformando coleta em <strong className="text-foreground">decisões inteligentes em tempo real</strong>.
             </p>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Para ilustrar o salto de performance do MC33 para o MC34, apresentamos um comparativo direto que detalha as principais 
-              diferenças técnicas e seus benefícios práticos.
+              Veja, no comparativo direto a seguir, o salto técnico do MC33 para o MC34 — o hardware que habilita a operação orientada por IA.
             </p>
           </div>
         </div>
