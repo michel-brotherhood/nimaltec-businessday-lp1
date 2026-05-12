@@ -1,6 +1,7 @@
 import nimalLogo from "@/assets/nimal-logo.png";
 import zebraLogo from "@/assets/zebra-logo.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { NavPill, useActiveSection } from "@/components/AnchorNav";
 
 const cornerCards = [
   {
