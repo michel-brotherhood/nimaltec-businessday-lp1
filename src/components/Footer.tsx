@@ -4,7 +4,7 @@ import zebraLogo from "@/assets/zebra-logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="relative z-10 border-t border-border bg-background/90 backdrop-blur-sm py-12 px-4">
+    <footer id="site-footer" className="relative z-10 border-t border-border bg-background/90 backdrop-blur-sm py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Event Details */}
         <div className="mb-10 bg-card/60 backdrop-blur-md border border-border rounded-xl p-6">

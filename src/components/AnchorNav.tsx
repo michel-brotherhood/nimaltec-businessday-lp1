@@ -96,10 +96,26 @@ const NavPill = ({ active }: { active: string }) => (
   </ul>
 );
 
+const useFooterVisible = () => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = document.getElementById("site-footer");
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => setVisible(entries[0]?.isIntersecting ?? false),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return visible;
+};
+
 const AnchorNav = () => {
   const active = useActiveSection();
   const compact = useIsCompact();
-  const hideFixed = compact && active === "hero";
+  const footerVisible = useFooterVisible();
+  const hideFixed = (compact && active === "hero") || footerVisible;
 
   return (
     <nav
