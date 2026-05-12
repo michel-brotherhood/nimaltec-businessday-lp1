@@ -46,7 +46,14 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
 
     setLoading(true);
     try {
-      const { error } = await supabase.from("registrations").insert(parsed.data);
+      const { error } = await supabase.from("registrations").insert({
+        name: parsed.data.name,
+        email: parsed.data.email,
+        company: parsed.data.company,
+        job_title: parsed.data.job_title,
+        phone: parsed.data.phone,
+        message: parsed.data.message ?? null,
+      });
       if (error) throw error;
 
       // Fire-and-forget email; don't block on errors
