@@ -61,7 +61,7 @@ const Hero = () => {
         }`}
       >
         <p className="text-primary font-semibold text-[11px] sm:text-xs md:text-sm mb-5 sm:mb-7 md:mb-8 tracking-[0.28em] uppercase drop-shadow-[0_0_10px_rgba(204,255,0,0.6)]">
-          Business Day · Nimal &amp; Zebra
+          Business Day · Nimal &amp; Zebra · 2026
         </p>
 
         <div className="flex items-center justify-center gap-5 sm:gap-7 md:gap-9 mb-8 sm:mb-10 md:mb-12 flex-wrap">
