@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, LogOut, Mail, Phone, Building2, User, Briefcase, MessageSquare } from "lucide-react";
+import { Loader2, LogOut, Mail, Phone, Building2, Briefcase, MessageSquare, Shield, UserPlus, Trash2 } from "lucide-react";
 
 type Registration = {
   id: string;
@@ -16,59 +17,110 @@ type Registration = {
   created_at: string;
 };
 
+type AdminUser = { user_id: string; email: string; created_at: string };
+
 const Admin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [canBootstrap, setCanBootstrap] = useState(false);
+  const [bootstrapping, setBootstrapping] = useState(false);
   const [rows, setRows] = useState<Registration[]>([]);
+  const [admins, setAdmins] = useState<AdminUser[]>([]);
+  const [newAdminEmail, setNewAdminEmail] = useState("");
+  const [promoting, setPromoting] = useState(false);
+  const [userId, setUserId] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
 
   useEffect(() => {
     document.title = "Inscrições · Nimal Admin";
   }, []);
 
-  useEffect(() => {
-    const init = async () => {
-      const { data: sessionData } = await supabase.auth.getSession();
-      const session = sessionData.session;
-      if (!session) {
-        navigate("/auth", { replace: true });
-        return;
+  const callClaim = useCallback(async (body: Record<string, unknown>) => {
+    const { data, error } = await supabase.functions.invoke("claim-admin", { body });
+    if (error) throw new Error(error.message);
+    if (data?.error) throw new Error(data.error);
+    return data;
+  }, []);
+
+  const loadAll = useCallback(async () => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    const session = sessionData.session;
+    if (!session) {
+      navigate("/auth", { replace: true });
+      return;
+    }
+    setUserId(session.user.id);
+    setUserEmail(session.user.email ?? "");
+
+    try {
+      const status = await callClaim({ action: "status" });
+      setIsAdmin(!!status.iAmAdmin);
+      setCanBootstrap(!!status.canBootstrap);
+
+      if (status.iAmAdmin) {
+        const [{ data: regs, error: regErr }, listRes] = await Promise.all([
+          supabase.from("registrations").select("*").order("created_at", { ascending: false }),
+          callClaim({ action: "list" }),
+        ]);
+        if (regErr) toast({ title: "Erro ao carregar inscrições", description: regErr.message, variant: "destructive" });
+        else setRows((regs ?? []) as Registration[]);
+        setAdmins(listRes.admins ?? []);
       }
-      setUserEmail(session.user.email ?? "");
-
-      const { data: roleData } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", session.user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-
-      if (!roleData) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
-      setIsAdmin(true);
-
-      const { data, error } = await supabase
-        .from("registrations")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        toast({ title: "Erro ao carregar", description: error.message, variant: "destructive" });
-      } else {
-        setRows(data as Registration[]);
-      }
+    } catch (e) {
+      toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
+    } finally {
       setLoading(false);
-    };
-    init();
-  }, [navigate]);
+    }
+  }, [callClaim, navigate]);
+
+  useEffect(() => { loadAll(); }, [loadAll]);
 
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate("/auth", { replace: true });
+  };
+
+  const claimFirstAdmin = async () => {
+    setBootstrapping(true);
+    try {
+      await callClaim({ action: "claim" });
+      toast({ title: "Pronto!", description: "Você é o primeiro admin." });
+      setLoading(true);
+      await loadAll();
+    } catch (e) {
+      toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
+    } finally {
+      setBootstrapping(false);
+    }
+  };
+
+  const promote = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newAdminEmail.trim()) return;
+    setPromoting(true);
+    try {
+      await callClaim({ action: "promote", email: newAdminEmail.trim() });
+      toast({ title: "Admin promovido", description: newAdminEmail });
+      setNewAdminEmail("");
+      const listRes = await callClaim({ action: "list" });
+      setAdmins(listRes.admins ?? []);
+    } catch (e) {
+      toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
+    } finally {
+      setPromoting(false);
+    }
+  };
+
+  const revoke = async (uid: string) => {
+    if (!confirm("Remover acesso de admin?")) return;
+    try {
+      await callClaim({ action: "revoke", user_id: uid });
+      const listRes = await callClaim({ action: "list" });
+      setAdmins(listRes.admins ?? []);
+    } catch (e) {
+      toast({ title: "Erro", description: (e as Error).message, variant: "destructive" });
+    }
   };
 
   if (loading) {
@@ -82,18 +134,29 @@ const Admin = () => {
   if (!isAdmin) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-background px-4">
-        <div className="max-w-md text-center space-y-4 bg-card border border-border rounded-2xl p-8">
+        <div className="max-w-md w-full text-center space-y-4 bg-card border border-border rounded-2xl p-8">
+          <Shield className="w-10 h-10 mx-auto text-primary" />
           <h1 className="text-2xl font-bold">Acesso restrito</h1>
           <p className="text-sm text-muted-foreground">
             Sua conta ({userEmail}) ainda não tem permissão de administrador.
-            Solicite que um admin atribua a função à sua conta.
           </p>
+          {canBootstrap ? (
+            <>
+              <p className="text-sm text-foreground">
+                Nenhum admin foi configurado ainda. Você pode se tornar o primeiro.
+              </p>
+              <Button onClick={claimFirstAdmin} disabled={bootstrapping} className="w-full">
+                {bootstrapping && <Loader2 className="w-4 h-4 animate-spin" />}
+                Tornar-me o primeiro admin
+              </Button>
+            </>
+          ) : (
+            <p className="text-xs text-muted-foreground">Solicite que um admin atribua a função à sua conta.</p>
+          )}
           <Button onClick={signOut} variant="outline" className="w-full">
             <LogOut className="w-4 h-4" /> Sair
           </Button>
-          <Link to="/" className="block text-xs text-muted-foreground hover:text-primary">
-            ← Voltar ao site
-          </Link>
+          <Link to="/" className="block text-xs text-muted-foreground hover:text-primary">← Voltar ao site</Link>
         </div>
       </main>
     );
@@ -113,12 +176,48 @@ const Admin = () => {
         </div>
       </header>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+        {/* Manage admins */}
+        <div className="bg-card border border-border rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="w-4 h-4 text-primary" />
+            <h2 className="font-semibold">Gerenciar admins</h2>
+          </div>
+          <form onSubmit={promote} className="flex flex-col sm:flex-row gap-2 mb-4">
+            <Input
+              type="email"
+              placeholder="email@empresa.com"
+              value={newAdminEmail}
+              onChange={(e) => setNewAdminEmail(e.target.value)}
+              required
+            />
+            <Button type="submit" disabled={promoting}>
+              {promoting ? <Loader2 className="w-4 h-4 animate-spin" /> : <UserPlus className="w-4 h-4" />}
+              Promover a admin
+            </Button>
+          </form>
+          <p className="text-xs text-muted-foreground mb-3">
+            O usuário precisa primeiro criar conta em <Link to="/auth" className="text-primary hover:underline">/auth</Link>.
+          </p>
+          <ul className="divide-y divide-border">
+            {admins.map((a) => (
+              <li key={a.user_id} className="flex items-center justify-between py-2 text-sm">
+                <span>{a.email} {a.user_id === userId && <span className="text-xs text-muted-foreground">(você)</span>}</span>
+                {a.user_id !== userId && (
+                  <Button onClick={() => revoke(a.user_id)} size="sm" variant="ghost" className="text-destructive hover:text-destructive">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Registrations */}
         {rows.length === 0 ? (
           <p className="text-center text-muted-foreground py-16">Nenhuma inscrição ainda.</p>
         ) : (
           <>
-            {/* Mobile cards */}
             <div className="grid gap-4 sm:hidden">
               {rows.map((r) => (
                 <article key={r.id} className="bg-card border border-border rounded-xl p-4 space-y-2">
@@ -133,7 +232,6 @@ const Admin = () => {
               ))}
             </div>
 
-            {/* Desktop table */}
             <div className="hidden sm:block overflow-x-auto bg-card border border-border rounded-xl">
               <table className="w-full text-sm">
                 <thead className="bg-secondary/40 text-left text-xs uppercase tracking-wider text-muted-foreground">
