@@ -37,20 +37,20 @@ const Hero = () => {
 
         {/* Main Title */}
         <h1
-          className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight transition-all duration-700 ${
-            isVisible ? "drop-shadow-[0_0_25px_rgba(204,255,0,0.5)]" : ""
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-[1.15] [text-wrap:balance] max-w-5xl mx-auto transition-all duration-700 ${
+            isVisible ? "drop-shadow-[0_0_25px_rgba(204,255,0,0.4)]" : ""
           }`}
         >
           <span className="block text-foreground">
             Não é só sobre coletar dados.
           </span>
-          <span className="block bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow animate-glow">
+          <span className="block bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow animate-glow pb-1">
             É sobre transformar dados em decisões.
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 sm:mb-12">
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 sm:mb-12 [text-wrap:balance]">
           IA aplicada à operação — logística, indústria e supply chain.
         </p>
 
@@ -68,11 +68,11 @@ const Hero = () => {
               <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
                 <Icon className="w-5 h-5 text-primary" />
               </div>
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   {label}
                 </p>
-                <p className="text-sm sm:text-base font-semibold text-foreground truncate">
+                <p className="text-sm font-semibold text-foreground leading-tight break-words">
                   {value}
                 </p>
               </div>

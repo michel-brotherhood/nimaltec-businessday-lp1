@@ -9,12 +9,14 @@ const Evolution = () => {
     <section className="pt-0 pb-6 sm:pb-10 lg:pb-14 px-4 relative z-10">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12 sm:mb-16 pb-4">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-foreground px-4 leading-tight">
-            Do Confiável ao Imbatível:
-          </h2>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent px-4 leading-tight pb-2">
-            A Evolução que Sua Operação Exige
+        <div className="text-center mb-12 sm:mb-16 pb-4 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-[1.15] [text-wrap:balance] px-4">
+            <span className="block text-foreground mb-2">
+              Do Confiável ao Imbatível:
+            </span>
+            <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent pb-1 drop-shadow-[0_0_20px_rgba(204,255,0,0.3)]">
+              A Evolução que Sua Operação Exige
+            </span>
           </h2>
         </div>
 
