@@ -5,6 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { JOB_TITLE_GROUPS } from "@/lib/job-titles";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { Loader2, Send } from "lucide-react";
@@ -13,7 +23,7 @@ const schema = z.object({
   name: z.string().trim().min(2, "Informe seu nome").max(100),
   email: z.string().trim().email("E-mail inválido").max(255),
   company: z.string().trim().min(2, "Informe sua empresa").max(120),
-  job_title: z.string().trim().min(2, "Informe seu cargo").max(120),
+  job_title: z.string().trim().min(2, "Selecione seu cargo").max(120),
   phone: z.string().trim().min(8, "Telefone inválido").max(40),
   message: z.string().trim().max(1000).optional(),
 });
@@ -23,16 +33,19 @@ type Props = { open: boolean; onOpenChange: (v: boolean) => void };
 const RegisterDialog = ({ open, onOpenChange }: Props) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [jobTitle, setJobTitle] = useState<string>("");
+  const [customJobTitle, setCustomJobTitle] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({});
     const fd = new FormData(e.currentTarget);
+    const finalJobTitle = jobTitle === "Outro" ? customJobTitle.trim() : jobTitle;
     const raw = {
       name: String(fd.get("name") || ""),
       email: String(fd.get("email") || ""),
       company: String(fd.get("company") || ""),
-      job_title: String(fd.get("job_title") || ""),
+      job_title: finalJobTitle,
       phone: String(fd.get("phone") || ""),
       message: String(fd.get("message") || "") || undefined,
     };
@@ -56,7 +69,6 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
       });
       if (error) throw error;
 
-      // Fire-and-forget email; don't block on errors
       supabase.functions.invoke("send-registration-email", {
         body: {
           name: parsed.data.name,
@@ -74,6 +86,8 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
       });
       onOpenChange(false);
       (e.target as HTMLFormElement).reset();
+      setJobTitle("");
+      setCustomJobTitle("");
     } catch (err) {
       console.error(err);
       toast({
@@ -115,7 +129,32 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="job_title">Cargo*</Label>
-              <Input id="job_title" name="job_title" required maxLength={120} />
+              <Select value={jobTitle} onValueChange={setJobTitle}>
+                <SelectTrigger id="job_title">
+                  <SelectValue placeholder="Selecione seu cargo" />
+                </SelectTrigger>
+                <SelectContent className="max-h-72">
+                  {JOB_TITLE_GROUPS.map((group) => (
+                    <SelectGroup key={group.label}>
+                      <SelectLabel>{group.label}</SelectLabel>
+                      {group.options.map((opt) => (
+                        <SelectItem key={opt} value={opt}>
+                          {opt}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ))}
+                </SelectContent>
+              </Select>
+              {jobTitle === "Outro" && (
+                <Input
+                  className="mt-2"
+                  placeholder="Digite seu cargo"
+                  value={customJobTitle}
+                  onChange={(e) => setCustomJobTitle(e.target.value)}
+                  maxLength={120}
+                />
+              )}
               {errors.job_title && <p className="text-xs text-destructive">{errors.job_title}</p>}
             </div>
             <div className="space-y-1.5 sm:col-span-2">
