@@ -53,7 +53,12 @@ const useIsMobile = () => {
 };
 
 const handleClick = (id: string) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Move keyboard focus to the section so screen readers + keyboard users follow.
+  if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+  el.focus({ preventScroll: true });
 };
 
 const NavPill = ({ active }: { active: string }) => (
