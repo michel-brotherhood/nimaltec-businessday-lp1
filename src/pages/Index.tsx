@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Schedule from "@/components/Schedule";
 import Evolution from "@/components/Evolution";
+import Devices from "@/components/Devices";
 import Location from "@/components/Location";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -16,6 +17,7 @@ const Index = () => {
         <section id="hero"><Hero /></section>
         <section id="agenda"><Schedule /></section>
         <section id="evolucao"><Evolution /></section>
+        <section id="dispositivos"><Devices /></section>
         <section id="local"><Location /></section>
         <section id="faq"><FAQ /></section>
         <Footer />

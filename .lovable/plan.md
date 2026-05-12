@@ -1,66 +1,48 @@
-# Plano: Hero cinematográfico + esconder scrollbar
+# Nova seção: Portfólio de Dispositivos Zebra
 
-## 1. Esconder a barra de rolagem (mantendo o scroll funcional)
+Adicionar uma seção apresentando os 7 dispositivos (MC34, MC94, TC501, TC701, ET401, WS300, TC22R) com imagem, nome, categoria e descrição curta — posicionada **logo após a seção "Evolução"** (comparativo MC33 vs MC34), reforçando a narrativa "do hardware confiável ao ecossistema completo de IA aplicada".
 
-Em `src/index.css`, adicionar utilitário global:
+## O que será criado
 
-```css
-html { scrollbar-width: none; }            /* Firefox */
-html::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-body { -ms-overflow-style: none; }         /* IE/Edge legado */
-```
+1. **Assets** — copiar as 7 imagens enviadas (`MC34-2.webp`, `MC94-2.webp`, `TC501-2.webp`, `TC701-2.webp`, `ET401-2.webp`, `WS300-2.webp`, `TC22R-2.webp`) para `src/assets/` com nomes limpos (`mc34.webp` já existe — reutilizar; demais como `mc94.webp`, `tc501.webp`, etc.).
 
-A página continua rolando normalmente — apenas a barra some.
+2. **Novo componente** `src/components/Devices.tsx`:
+   - Header da seção: título "O Ecossistema Completo para sua Operação Inteligente" + subtítulo conectando ao tema (IA aplicada sobre hardware confiável).
+   - Grid responsivo de cards: 1 col (mobile), 2 cols (tablet), 3 cols (desktop), com o 7º card centralizado na última linha.
+   - Cada card contém:
+     - Imagem do dispositivo (object-contain, ~h-48)
+     - Badge com categoria (ex: "Ultra-Rugged", "AI-Powered", "Wearable", "RFID Integrado")
+     - Nome do modelo (destaque tipográfico)
+     - Descrição curta (2–3 linhas, extraída do `.md` enviado)
+     - Lista compacta de 2–3 specs-chave (ícones + texto)
+   - Hover: borda neon + leve scale + glow (consistente com Evolution).
+   - Animação de entrada via `useScrollAnimation` (fade/translate stagger).
 
-## 2. Reorganizar a primeira seção (Hero) inspirado na referência Protetta
+3. **Index.tsx** — adicionar `<section id="dispositivos"><Devices /></section>` entre Evolution e Location.
 
-Referência observada na imagem: vídeo full-bleed ocupando a tela toda, título central elegante, eyebrow discreto acima, subtítulo curto abaixo, e **cards flutuantes nos cantos** (canto superior esquerdo e canto inferior esquerdo) com micro-informações — em vez do bloco grid de 3 cards centralizados que temos hoje.
+4. **AnchorNav.tsx** — adicionar item "Dispositivos" (ícone `Smartphone` ou `Boxes` do lucide) ao array `sections`, mantendo a sincronização do scroll spy.
 
-Mudanças apenas em `src/components/Hero.tsx` (sem tocar em `VideoBackground`, paleta ou outras seções):
+## Conteúdo dos cards (resumo do .md)
 
-### 2.1. Layout geral
-- Transformar a seção em **full viewport**: `min-h-screen` em vez de `min-h-[60vh]`, com o conteúdo centralizado vertical e horizontalmente (`flex items-center justify-center`).
-- Manter o vídeo de fundo atual (já é global via `VideoBackground`), apenas reforçando o gradiente inferior para legibilidade dos cards flutuantes (overlay leve via `bg-gradient-to-b from-background/30 via-transparent to-background/70` interno à seção).
-
-### 2.2. Bloco central (eyebrow + logos + título + subtítulo)
-- **Eyebrow** (já existe): "BUSINESS DAY · NIMAL & ZEBRA" — manter em verde neon, tracking largo, tamanho `text-xs sm:text-sm`.
-- **Logos Nimal + Zebra**: manter como hoje, levemente menores (`h-10 sm:h-12 md:h-14`) e com mais respiração (`mb-8`).
-- **Título** (`h1`): manter as duas linhas, mas refinar a hierarquia ao estilo editorial da referência:
-  - Linha 1 em `font-light` / `font-normal` foreground.
-  - Linha 2 com gradiente verde neon mantido, em `font-bold`.
-  - Escala: `text-4xl sm:text-5xl md:text-6xl lg:text-7xl`, `leading-[1.05]`, `[text-wrap:balance]`, `max-w-5xl`.
-- **Subtítulo**: 1 linha curta, `text-base sm:text-lg`, `text-muted-foreground`, `max-w-xl mx-auto`.
-
-### 2.3. Cards flutuantes nos cantos (substituem o grid central)
-Quatro micro-cards posicionados em `absolute` dentro da seção, estilo "tags" da referência. Em mobile viram um stack vertical no rodapé da seção (não absolutos), para evitar sobreposição.
-
-Layout desktop (≥ lg):
-- **Topo-esquerdo**: card "DATA · 30/06/2026 · Business Day".
-- **Topo-direito**: card "12h às 15h · Almoço executivo".
-- **Inferior-esquerdo**: card "Restaurante Fogo de Chão · Botafogo/RJ".
-- **Inferior-direito**: card "Por convite · Vagas limitadas".
-
-Estilo dos cards (consistente com o restante da landing):
-- `bg-card/70 backdrop-blur-md border border-border/60 rounded-xl px-4 py-3`
-- Eyebrow em `text-[10px] uppercase tracking-wider text-muted-foreground`
-- Valor em `text-sm font-semibold text-foreground`
-- Hover sutil com `hover:border-primary/60`
-
-Mobile (< lg):
-- Cards renderizam como grid 2x2 abaixo do subtítulo, com `gap-3`, ainda dentro do hero (sem `absolute`). Ícones removidos para deixar mais leve, idêntico à referência.
-
-### 2.4. Remover elementos pesados
-- Remover o grid central atual de 3 cards grandes com ícones (Calendar/Clock/MapPin) — toda essa info agora vive nos cards flutuantes/cantos.
-- Manter a animação de entrada (`useScrollAnimation`) só no bloco central.
-
-## Fora do escopo
-
-- Não criar header/navegação superior (a referência tem nav, mas a memória do projeto diz "No navigation header" — respeitar).
-- Não tocar em Schedule, Evolution, Location, FAQ, Footer ou VideoBackground.
-- Não alterar paleta, tokens ou tipografia base.
+| Modelo | Categoria | Resumo |
+|---|---|---|
+| MC34 | Mobile Computer · Próxima geração | Snapdragon 8cx Gen 3, Wi-Fi 6E, 5G opcional, Android 13 + Zebra DNA |
+| MC94 | Ultra-Rugged | Backward compatible, versões freezer e non-incendive para áreas críticas |
+| TC501 | AI-Powered Touch | AMOLED 6", RFID UHF integrado, processamento de IA na borda |
+| TC701 | Ultra-Rugged AI | Queda de 12 ft, Wi-Fi 7, projetado para ambientes severos |
+| ET401 | Enterprise Tablet | 8"/10.1", IP68, Wi-Fi 7, ideal para campo e supervisão |
+| WS300 | Wearable | Hands-free, voice picking, otimizado para separação contínua |
+| TC22R | Touch + RFID | RFID integrado, leitura de 1.300 tags/s, display 6" FHD+ |
 
 ## Detalhes técnicos
 
-- Cards absolutos usam `hidden lg:block` + `absolute top-6 left-6` etc.; versão mobile usa `grid grid-cols-2 gap-3 lg:hidden mt-10`.
-- A seção precisa de `relative overflow-hidden` para conter os cards absolutos.
-- O scroll continua funcionando após esconder a scrollbar — testado pelo padrão CSS acima, sem JS.
+- Tokens semânticos do design system (sem cores hardcoded): `bg-card/80`, `border-border`, `text-primary`, `text-accent`, `text-muted-foreground`.
+- Mesma linguagem visual de Evolution: `backdrop-blur-md`, `rounded-xl`, hover `shadow-[0_0_30px_rgba(204,255,0,0.3)]`.
+- Imagens com `loading="lazy"` e `alt` descritivo (SEO/a11y).
+- Sem alteração de business logic, sem novas dependências.
+
+## Fora de escopo
+
+- Página de detalhe por dispositivo.
+- Filtros/categorias interativas.
+- Reescrita do comparativo MC33 vs MC34 (permanece como está).
