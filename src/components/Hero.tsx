@@ -88,6 +88,11 @@ const Hero = () => {
         <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-md sm:max-w-lg md:max-w-xl mx-auto [text-wrap:balance] leading-relaxed">
           IA aplicada à operação — logística, indústria e supply chain.
         </p>
+
+        {/* Inline anchor nav on mobile only — replaces fixed bar while in hero */}
+        <div className="sm:hidden mt-8 flex justify-center">
+          <NavPill active={active} />
+        </div>
       </div>
     </section>
   );
