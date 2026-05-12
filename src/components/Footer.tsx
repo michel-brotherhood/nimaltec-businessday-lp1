@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram, Youtube, Linkedin, Calendar, Clock, MapPin, Sparkles } from "lucide-react";
 import nimalLogo from "@/assets/nimal-zebra-logos.png";
 import zebraLogo from "@/assets/zebra-logo.svg";
 
