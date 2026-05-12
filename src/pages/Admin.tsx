@@ -189,7 +189,7 @@ const Admin = () => {
 
       <section className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Stat strip */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className={`grid grid-cols-1 gap-3 sm:gap-4 ${isSuperAdmin ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
           <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-xl p-4 hover:border-primary/40 transition-colors">
             <div className="flex items-center justify-between">
               <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Inscrições</p>
@@ -197,13 +197,15 @@ const Admin = () => {
             </div>
             <p className="text-3xl font-bold mt-2 text-primary drop-shadow-[0_0_15px_rgba(204,255,0,0.35)]">{rows.length}</p>
           </div>
-          <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-xl p-4 hover:border-primary/40 transition-colors">
-            <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Admins ativos</p>
-              <Shield className="w-4 h-4 text-primary" />
+          {isSuperAdmin && (
+            <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-xl p-4 hover:border-primary/40 transition-colors">
+              <div className="flex items-center justify-between">
+                <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Admins ativos</p>
+                <Shield className="w-4 h-4 text-primary" />
+              </div>
+              <p className="text-3xl font-bold mt-2">{admins.length}</p>
             </div>
-            <p className="text-3xl font-bold mt-2">{admins.length}</p>
-          </div>
+          )}
           <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-xl p-4 hover:border-primary/40 transition-colors">
             <div className="flex items-center justify-between">
               <p className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Evento</p>
