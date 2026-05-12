@@ -31,6 +31,10 @@ const Admin = () => {
   const [promoting, setPromoting] = useState(false);
   const [userId, setUserId] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState<"recent" | "oldest" | "name" | "company">("recent");
+
+  const isSuperAdmin = userEmail.toLowerCase() === SUPER_ADMIN_EMAIL;
 
   useEffect(() => {
     document.title = "Inscrições · Nimal Admin";
