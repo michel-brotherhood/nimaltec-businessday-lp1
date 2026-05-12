@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { CalendarDays, ListChecks, Cpu, MapPin, HelpCircle } from "lucide-react";
+import { CalendarDays, ListChecks, Cpu, Smartphone, MapPin, HelpCircle } from "lucide-react";
 
 const sections = [
   { id: "hero", label: "Início", icon: CalendarDays },
   { id: "agenda", label: "Agenda", icon: ListChecks },
   { id: "evolucao", label: "Evolução", icon: Cpu },
+  { id: "dispositivos", label: "Dispositivos", icon: Smartphone },
   { id: "local", label: "Local", icon: MapPin },
   { id: "faq", label: "FAQ", icon: HelpCircle },
 ];
