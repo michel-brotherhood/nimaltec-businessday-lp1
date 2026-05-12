@@ -40,16 +40,19 @@ const useActiveSection = () => {
   return active;
 };
 
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
+// Treats mobile + tablet as "compact" (below lg). On these widths the fixed
+// nav would overlap the floating corner cards while the hero is in view, so we
+// inline the nav inside the hero instead.
+const useIsCompact = () => {
+  const [compact, setCompact] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    const update = () => setIsMobile(mq.matches);
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const update = () => setCompact(mq.matches);
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
-  return isMobile;
+  return compact;
 };
 
 const handleClick = (id: string) => {
