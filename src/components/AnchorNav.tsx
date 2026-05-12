@@ -95,8 +95,8 @@ const NavPill = ({ active }: { active: string }) => (
 
 const AnchorNav = () => {
   const active = useActiveSection();
-  const isMobile = useIsMobile();
-  const hideFixed = isMobile && active === "hero";
+  const compact = useIsCompact();
+  const hideFixed = compact && active === "hero";
 
   return (
     <nav
