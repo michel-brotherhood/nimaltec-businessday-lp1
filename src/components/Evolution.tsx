@@ -196,10 +196,10 @@ const Evolution = () => {
         {/* Conclusion */}
         <div className="max-w-5xl mx-auto mt-12 sm:mt-16">
           <div className="bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 lg:p-12">
-            <h3 className="text-3xl font-bold text-foreground mb-6">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 leading-[1.2] [text-wrap:balance]">
               Conclusão: Um Salto Quântico em Performance
             </h3>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-6">
               A transição para a nova geração de coletores representa um investimento direto na eficiência e 
               na resiliência da sua operação. As melhorias não são apenas incrementais; elas redefinem o que 
               é possível em campo e no armazém.
@@ -237,7 +237,7 @@ const Evolution = () => {
                 </span>
               </li>
             </ul>
-            <p className="text-lg text-accent font-semibold mt-8">
+            <p className="text-base sm:text-lg text-accent font-semibold mt-8 leading-relaxed [text-wrap:balance]">
               Não é só sobre coletar dados. É sobre transformar dados em decisões que impactam a operação —
               com IA aplicada sobre uma base de hardware preparada para o futuro.
             </p>
