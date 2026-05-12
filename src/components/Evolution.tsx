@@ -236,8 +236,8 @@ const Evolution = () => {
               </li>
             </ul>
             <p className="text-lg text-accent font-semibold mt-8">
-              A atualização é mais do que uma simples troca de hardware; é a garantia de uma operação mais 
-              inteligente, rápida e à prova de futuro.
+              Não é só sobre coletar dados. É sobre transformar dados em decisões que impactam a operação —
+              com IA aplicada sobre uma base de hardware preparada para o futuro.
             </p>
           </div>
         </div>
