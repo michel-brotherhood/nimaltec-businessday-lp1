@@ -262,6 +262,7 @@ const Admin = () => {
             ))}
           </ul>
         </div>
+        )}
 
         {/* Registrations */}
         <div className="bg-card/70 backdrop-blur-sm border border-border/60 rounded-2xl p-5 sm:p-6">
