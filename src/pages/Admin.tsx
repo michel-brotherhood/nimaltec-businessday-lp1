@@ -270,7 +270,9 @@ const Admin = () => {
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-primary" />
               <h2 className="font-semibold">Inscrições</h2>
-              <span className="text-xs text-muted-foreground">({rows.length})</span>
+              <span className="text-xs text-muted-foreground">
+                ({filteredRows.length}{filteredRows.length !== rows.length && <> de {rows.length}</>})
+              </span>
             </div>
             {rows.length > 0 && (
               <Button onClick={exportCSV} variant="outline" size="sm">
@@ -286,9 +288,49 @@ const Admin = () => {
             </div>
           ) : (
             <>
+              {/* Filters */}
+              <div className="flex flex-col sm:flex-row gap-2 mb-4">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Buscar por nome, e-mail, empresa, cargo ou telefone…"
+                    className="bg-background/50 h-10 pl-9 pr-9"
+                  />
+                  {search && (
+                    <button
+                      type="button"
+                      onClick={() => setSearch("")}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/40"
+                      aria-label="Limpar busca"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                  className="h-10 rounded-md border border-input bg-background/50 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring sm:w-52"
+                >
+                  <option value="recent">Mais recentes</option>
+                  <option value="oldest">Mais antigas</option>
+                  <option value="name">Nome (A–Z)</option>
+                  <option value="company">Empresa (A–Z)</option>
+                </select>
+              </div>
+
+              {filteredRows.length === 0 ? (
+                <div className="text-center py-12 border border-dashed border-border/60 rounded-xl">
+                  <Search className="w-6 h-6 mx-auto text-muted-foreground/40 mb-2" />
+                  <p className="text-sm text-muted-foreground">Nenhum resultado para "{search}".</p>
+                </div>
+              ) : (
+              <>
               {/* Mobile cards */}
               <div className="grid gap-3 sm:hidden">
-                {rows.map((r) => (
+                {filteredRows.map((r) => (
                   <article key={r.id} className="bg-background/40 border border-border/60 rounded-xl p-4 space-y-2 hover:border-primary/40 transition-colors">
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="font-semibold text-foreground">{r.name}</h3>
@@ -324,7 +366,7 @@ const Admin = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border/60">
-                    {rows.map((r) => (
+                    {filteredRows.map((r) => (
                       <tr key={r.id} className="hover:bg-primary/5 transition-colors">
                         <td className="px-4 py-3 whitespace-nowrap text-muted-foreground text-xs">
                           {new Date(r.created_at).toLocaleString("pt-BR")}
@@ -340,6 +382,8 @@ const Admin = () => {
                   </tbody>
                 </table>
               </div>
+              </>
+              )}
             </>
           )}
         </div>
