@@ -122,7 +122,7 @@ const Footer = () => {
               </a>
             </p>
             <p className="text-muted-foreground text-sm">
-              © 2025 Nimal Connect. Todos os direitos reservados.
+              © 2026 Nimal Connect. Todos os direitos reservados.
             </p>
           </div>
         </div>
