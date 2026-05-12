@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { CalendarDays, ListChecks, Cpu, Smartphone, MapPin, HelpCircle } from "lucide-react";
+import { CalendarDays, ListChecks, Smartphone, BarChart3, Play, MapPin, Send, HelpCircle } from "lucide-react";
 
 const sections = [
   { id: "hero", label: "Início", icon: CalendarDays },
   { id: "agenda", label: "Agenda", icon: ListChecks },
-  { id: "evolucao", label: "Evolução", icon: Cpu },
   { id: "dispositivos", label: "Dispositivos", icon: Smartphone },
+  { id: "numeros", label: "Números", icon: BarChart3 },
+  { id: "video", label: "Vídeo", icon: Play },
   { id: "local", label: "Local", icon: MapPin },
+  { id: "inscricao", label: "Inscrição", icon: Send },
   { id: "faq", label: "FAQ", icon: HelpCircle },
 ];
 

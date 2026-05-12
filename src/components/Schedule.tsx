@@ -4,7 +4,7 @@ const items = [
   { time: "12h00", title: "Credenciamento & Welcome Drink", desc: "Recepção dos convidados e networking inicial." },
   { time: "12h30", title: "Almoço de Boas-vindas", desc: "Rodízio Fogo de Chão com mesa executiva." },
   { time: "13h15", title: "Abertura · Nimal & Zebra", desc: "Visão estratégica: IA aplicada à operação." },
-  { time: "13h45", title: "Painel Técnico: Do MC33 ao MC34", desc: "A nova base de hardware para a camada de IA em logística e supply chain." },
+  { time: "13h45", title: "Novidades Zebra 2026", desc: "Apresentação do ecossistema completo de dispositivos com IA aplicada à operação." },
   { time: "14h15", title: "Casos de Uso & Demonstrações", desc: "RFID, coletores e automação transformando dados em decisões." },
   { time: "14h45", title: "Q&A e Networking de Encerramento", desc: "Conexões diretas com os times Nimal e Zebra." },
 ];
