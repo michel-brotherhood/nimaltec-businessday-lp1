@@ -53,25 +53,35 @@ const useIsMobile = () => {
 };
 
 const handleClick = (id: string) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Move keyboard focus to the section so screen readers + keyboard users follow.
+  if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+  el.focus({ preventScroll: true });
 };
 
 const NavPill = ({ active }: { active: string }) => (
-  <ul className="flex items-center gap-1 sm:gap-2 bg-card/80 backdrop-blur-xl border border-border/70 rounded-full px-2 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
+  <ul
+    role="list"
+    className="flex items-center gap-1 sm:gap-2 bg-card/80 backdrop-blur-xl border border-border/70 rounded-full px-2 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
+  >
     {sections.map(({ id, label, icon: Icon }) => {
       const isActive = active === id;
       return (
         <li key={id}>
           <button
+            type="button"
             onClick={() => handleClick(id)}
+            aria-label={`Ir para a seção ${label}`}
             aria-current={isActive ? "true" : undefined}
-            className={`group flex items-center gap-1.5 rounded-full px-2.5 sm:px-3.5 py-2 transition-all ${
+            className={`group flex items-center gap-1.5 rounded-full px-2.5 sm:px-3.5 py-2 transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
               isActive
                 ? "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(204,255,0,0.45)]"
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
             }`}
           >
-            <Icon className="w-4 h-4 shrink-0" />
+            <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span className="text-xs sm:text-sm font-medium hidden sm:inline">{label}</span>
           </button>
         </li>
