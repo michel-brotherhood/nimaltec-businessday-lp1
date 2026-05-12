@@ -1,4 +1,3 @@
-import { Sparkles } from "lucide-react";
 import nimalLogo from "@/assets/nimal-logo.png";
 import zebraLogo from "@/assets/zebra-logo.svg";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -79,11 +78,8 @@ const Hero = () => {
             isVisible ? "drop-shadow-[0_0_25px_rgba(204,255,0,0.35)]" : ""
           }`}
         >
-          <span className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 flex-wrap">
-            <Sparkles className="w-7 h-7 sm:w-9 sm:h-9 md:w-12 md:h-12 text-primary animate-pulse-slow drop-shadow-[0_0_15px_rgba(204,255,0,0.7)]" aria-hidden="true" />
-            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
-              Nimal &amp; Zebra 2026
-            </span>
+          <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
+            Nimal &amp; Zebra 2026
           </span>
           <span className="block mt-3 sm:mt-4 md:mt-5 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary tracking-tight">
             IA aplicada à operação
