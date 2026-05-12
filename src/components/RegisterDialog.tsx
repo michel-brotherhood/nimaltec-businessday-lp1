@@ -188,15 +188,17 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
             />
             <Label htmlFor="consent" className="text-xs text-muted-foreground font-normal leading-snug cursor-pointer">
               Li e aceito a{" "}
-              <a
-                href="/privacidade"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-primary hover:underline"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.open("/privacidade", "_blank", "noopener,noreferrer");
+                }}
+                className="text-primary hover:underline underline-offset-2 font-medium"
               >
                 Política de Privacidade
-              </a>{" "}
+              </button>{" "}
               e autorizo o uso dos meus dados para esta inscrição.
             </Label>
           </div>
