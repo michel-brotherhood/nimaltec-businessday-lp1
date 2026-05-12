@@ -1,43 +1,66 @@
-# Plano: Trocar vídeo de fundo + ajustar Hero e título da Evolution
+# Plano: Hero cinematográfico + esconder scrollbar
 
-## 1. Vídeo de fundo
+## 1. Esconder a barra de rolagem (mantendo o scroll funcional)
 
-- Copiar `user-uploads://video-fundo-nimal.mp4` para `src/assets/fundo_video.mp4` (sobrescrevendo o atual). Como `VideoBackground.tsx` já importa esse caminho, nenhuma mudança de código é necessária.
+Em `src/index.css`, adicionar utilitário global:
 
-## 2. Hero — responsividade do título e do bloco de detalhes
+```css
+html { scrollbar-width: none; }            /* Firefox */
+html::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+body { -ms-overflow-style: none; }         /* IE/Edge legado */
+```
 
-Problemas atuais:
-- O título de duas linhas ("Não é só sobre coletar dados." / "É sobre transformar dados em decisões.") fica grande demais e quebra mal em desktop, notebook e mobile.
-- No card "Local", o texto "Restaurante Fogo de Chão" está sendo cortado por `truncate`, então a informação some.
+A página continua rolando normalmente — apenas a barra some.
 
-Ajustes em `src/components/Hero.tsx`:
-- Reduzir e calibrar a escala tipográfica do `<h1>` para evitar quebras feias:
-  - Mobile: `text-3xl`
-  - sm: `text-4xl`
-  - md: `text-5xl`
-  - lg: `text-6xl`
-- Acrescentar `text-balance` (e `leading-[1.1]`) para melhor distribuição das linhas.
-- Limitar largura do título com `max-w-5xl mx-auto` para evitar linhas excessivamente largas em telas grandes.
-- Subtítulo: manter, ajustando margem se necessário.
-- Cards de evento: remover `truncate` do valor e permitir quebra (`whitespace-normal break-words leading-tight`), reduzindo levemente a fonte (`text-sm`) para que "Restaurante Fogo de Chão" caiba sem cortes em duas linhas, se preciso.
+## 2. Reorganizar a primeira seção (Hero) inspirado na referência Protetta
 
-## 3. Evolution — título "Do Confiável ao Imbatível"
+Referência observada na imagem: vídeo full-bleed ocupando a tela toda, título central elegante, eyebrow discreto acima, subtítulo curto abaixo, e **cards flutuantes nos cantos** (canto superior esquerdo e canto inferior esquerdo) com micro-informações — em vez do bloco grid de 3 cards centralizados que temos hoje.
 
-Problema: a segunda linha "A Evolução que Sua Operação Exige" usa gradiente verde neon, ficando visualmente "bruta" e desconectada da primeira linha.
+Mudanças apenas em `src/components/Hero.tsx` (sem tocar em `VideoBackground`, paleta ou outras seções):
 
-Ajuste em `src/components/Evolution.tsx`:
-- Unificar o estilo do título em duas linhas com hierarquia consistente:
-  - Linha 1: foreground, peso bold, `text-3xl sm:text-4xl md:text-5xl`.
-  - Linha 2: gradiente verde neon, mesmo tamanho da linha 1 (não maior), com `leading-[1.15]`, `text-balance` e `pb-1` para não cortar descendentes.
-- Centralizar e limitar largura com `max-w-4xl mx-auto` para evitar quebras estranhas em telas largas.
-- Reduzir a sombra/`drop-shadow` para um glow mais suave, mantendo a paleta verde neon.
+### 2.1. Layout geral
+- Transformar a seção em **full viewport**: `min-h-screen` em vez de `min-h-[60vh]`, com o conteúdo centralizado vertical e horizontalmente (`flex items-center justify-center`).
+- Manter o vídeo de fundo atual (já é global via `VideoBackground`), apenas reforçando o gradiente inferior para legibilidade dos cards flutuantes (overlay leve via `bg-gradient-to-b from-background/30 via-transparent to-background/70` interno à seção).
+
+### 2.2. Bloco central (eyebrow + logos + título + subtítulo)
+- **Eyebrow** (já existe): "BUSINESS DAY · NIMAL & ZEBRA" — manter em verde neon, tracking largo, tamanho `text-xs sm:text-sm`.
+- **Logos Nimal + Zebra**: manter como hoje, levemente menores (`h-10 sm:h-12 md:h-14`) e com mais respiração (`mb-8`).
+- **Título** (`h1`): manter as duas linhas, mas refinar a hierarquia ao estilo editorial da referência:
+  - Linha 1 em `font-light` / `font-normal` foreground.
+  - Linha 2 com gradiente verde neon mantido, em `font-bold`.
+  - Escala: `text-4xl sm:text-5xl md:text-6xl lg:text-7xl`, `leading-[1.05]`, `[text-wrap:balance]`, `max-w-5xl`.
+- **Subtítulo**: 1 linha curta, `text-base sm:text-lg`, `text-muted-foreground`, `max-w-xl mx-auto`.
+
+### 2.3. Cards flutuantes nos cantos (substituem o grid central)
+Quatro micro-cards posicionados em `absolute` dentro da seção, estilo "tags" da referência. Em mobile viram um stack vertical no rodapé da seção (não absolutos), para evitar sobreposição.
+
+Layout desktop (≥ lg):
+- **Topo-esquerdo**: card "DATA · 30/06/2026 · Business Day".
+- **Topo-direito**: card "12h às 15h · Almoço executivo".
+- **Inferior-esquerdo**: card "Restaurante Fogo de Chão · Botafogo/RJ".
+- **Inferior-direito**: card "Por convite · Vagas limitadas".
+
+Estilo dos cards (consistente com o restante da landing):
+- `bg-card/70 backdrop-blur-md border border-border/60 rounded-xl px-4 py-3`
+- Eyebrow em `text-[10px] uppercase tracking-wider text-muted-foreground`
+- Valor em `text-sm font-semibold text-foreground`
+- Hover sutil com `hover:border-primary/60`
+
+Mobile (< lg):
+- Cards renderizam como grid 2x2 abaixo do subtítulo, com `gap-3`, ainda dentro do hero (sem `absolute`). Ícones removidos para deixar mais leve, idêntico à referência.
+
+### 2.4. Remover elementos pesados
+- Remover o grid central atual de 3 cards grandes com ícones (Calendar/Clock/MapPin) — toda essa info agora vive nos cards flutuantes/cantos.
+- Manter a animação de entrada (`useScrollAnimation`) só no bloco central.
 
 ## Fora do escopo
 
-- Não alterar paleta, layout geral, tabela MC33/MC34, Statistics, Footer ou SEO.
-- Não tocar em VideoBackground além da troca de arquivo.
+- Não criar header/navegação superior (a referência tem nav, mas a memória do projeto diz "No navigation header" — respeitar).
+- Não tocar em Schedule, Evolution, Location, FAQ, Footer ou VideoBackground.
+- Não alterar paleta, tokens ou tipografia base.
 
 ## Detalhes técnicos
 
-- `text-balance` requer Tailwind ≥3.4 (já no projeto). Se indisponível, usar `[text-wrap:balance]`.
-- A cópia do vídeo será via `code--copy` para `src/assets/fundo_video.mp4` com `overwrite: true`. O Vite re-bundlará automaticamente.
+- Cards absolutos usam `hidden lg:block` + `absolute top-6 left-6` etc.; versão mobile usa `grid grid-cols-2 gap-3 lg:hidden mt-10`.
+- A seção precisa de `relative overflow-hidden` para conter os cards absolutos.
+- O scroll continua funcionando após esconder a scrollbar — testado pelo padrão CSS acima, sem JS.
