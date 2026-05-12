@@ -5,17 +5,19 @@ import Location from "@/components/Location";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import VideoBackground from "@/components/VideoBackground";
+import AnchorNav from "@/components/AnchorNav";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <VideoBackground />
+      <AnchorNav />
       <div className="relative z-10">
-        <Hero />
-        <Schedule />
-        <Evolution />
-        <Location />
-        <FAQ />
+        <section id="hero"><Hero /></section>
+        <section id="agenda"><Schedule /></section>
+        <section id="evolucao"><Evolution /></section>
+        <section id="local"><Location /></section>
+        <section id="faq"><FAQ /></section>
         <Footer />
       </div>
     </div>
