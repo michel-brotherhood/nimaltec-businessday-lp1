@@ -36,6 +36,24 @@ const Admin = () => {
 
   const isSuperAdmin = userEmail.toLowerCase() === SUPER_ADMIN_EMAIL;
 
+  const filteredRows = (() => {
+    const q = search.trim().toLowerCase();
+    let list = rows;
+    if (q) {
+      list = rows.filter((r) =>
+        [r.name, r.email, r.company, r.job_title, r.phone, r.message ?? ""].some((v) =>
+          v.toLowerCase().includes(q),
+        ),
+      );
+    }
+    const sorted = [...list];
+    if (sortBy === "recent") sorted.sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at));
+    else if (sortBy === "oldest") sorted.sort((a, b) => +new Date(a.created_at) - +new Date(b.created_at));
+    else if (sortBy === "name") sorted.sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    else if (sortBy === "company") sorted.sort((a, b) => a.company.localeCompare(b.company, "pt-BR"));
+    return sorted;
+  })();
+
   useEffect(() => {
     document.title = "Inscrições · Nimal Admin";
   }, []);
