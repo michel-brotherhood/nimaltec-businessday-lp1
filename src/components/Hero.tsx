@@ -20,13 +20,13 @@ const cornerCards = [
     label: "Local",
     value: "Fogo de Chão",
     sub: "Botafogo · RJ",
-    pos: "bottom-20 left-3 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8",
+    pos: "bottom-3 left-3 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8",
   },
   {
     label: "Acesso",
     value: "Por convite",
     sub: "Vagas limitadas",
-    pos: "bottom-20 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8",
+    pos: "bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8",
   },
 ];
 
