@@ -20,13 +20,13 @@ const cornerCards = [
     label: "Local",
     value: "Fogo de Chão",
     sub: "Botafogo · RJ",
-    pos: "bottom-20 left-3 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8",
+    pos: "bottom-3 left-3 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8",
   },
   {
     label: "Acesso",
     value: "Por convite",
     sub: "Vagas limitadas",
-    pos: "bottom-20 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8",
+    pos: "bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8",
   },
 ];
 
@@ -89,8 +89,8 @@ const Hero = () => {
           IA aplicada à operação — logística, indústria e supply chain.
         </p>
 
-        {/* Inline anchor nav on mobile only — replaces fixed bar while in hero */}
-        <div className="sm:hidden mt-8 flex justify-center">
+        {/* Inline anchor nav for mobile + tablet — replaces fixed bar while hero is in view */}
+        <div className="lg:hidden mt-7 sm:mt-10 md:mt-12 flex justify-center">
           <NavPill active={active} />
         </div>
       </div>
