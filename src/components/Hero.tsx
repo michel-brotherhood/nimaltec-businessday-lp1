@@ -87,22 +87,6 @@ const Hero = () => {
           IA aplicada à operação — logística, indústria e supply chain.
         </p>
 
-        {/* Mobile / tablet info grid */}
-        <div className="grid grid-cols-2 gap-3 lg:hidden mt-10 max-w-md mx-auto">
-          {cornerCards.map((c) => (
-            <div
-              key={c.label}
-              className="bg-card/70 backdrop-blur-md border border-border/60 rounded-xl px-3 py-2.5 text-left"
-            >
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-0.5">
-                {c.label}
-              </p>
-              <p className="text-xs sm:text-sm font-semibold text-foreground leading-tight">
-                {c.value}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
