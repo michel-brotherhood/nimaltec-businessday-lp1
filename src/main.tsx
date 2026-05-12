@@ -3,6 +3,15 @@ import App from "./App.tsx";
 import ErrorBoundary from "./components/ErrorBoundary.tsx";
 import "./index.css";
 
+
+// "Lembrar-me": se o usuário desmarcou no login, limpa a sessão ao fechar o navegador.
+const SUPABASE_AUTH_KEY = "sb-hvzcxuwkbowllavgzwah-auth-token";
+window.addEventListener("pagehide", () => {
+  if (sessionStorage.getItem("nimal:ephemeral") === "1") {
+    localStorage.removeItem(SUPABASE_AUTH_KEY);
+  }
+});
+
 if (import.meta.env.PROD) {
   window.addEventListener("contextmenu", (e) => e.preventDefault());
   window.addEventListener("keydown", (e) => {
