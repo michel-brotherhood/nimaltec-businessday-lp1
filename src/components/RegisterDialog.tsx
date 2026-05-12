@@ -188,14 +188,15 @@ const RegisterDialog = ({ open, onOpenChange }: Props) => {
             />
             <Label htmlFor="consent" className="text-xs text-muted-foreground font-normal leading-snug cursor-pointer">
               Li e aceito a{" "}
-              <Link
-                to="/privacidade"
+              <a
+                href="/privacidade"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
                 className="text-primary hover:underline"
               >
                 Política de Privacidade
-              </Link>{" "}
+              </a>{" "}
               e autorizo o uso dos meus dados para esta inscrição.
             </Label>
           </div>
