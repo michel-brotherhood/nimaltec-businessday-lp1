@@ -4,8 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Loader2, LogOut, Mail, Phone, Building2, Briefcase, MessageSquare, Shield, UserPlus, Trash2, Users, CalendarDays, Download, ArrowLeft } from "lucide-react";
+import { Loader2, LogOut, Mail, Phone, Building2, Briefcase, MessageSquare, Shield, UserPlus, Trash2, Users, CalendarDays, Download, ArrowLeft, Search, X } from "lucide-react";
 import nimalLogo from "@/assets/nimal-logo.png";
+
+const SUPER_ADMIN_EMAIL = "michel@idlab.art.br";
 
 type Registration = {
   id: string;
