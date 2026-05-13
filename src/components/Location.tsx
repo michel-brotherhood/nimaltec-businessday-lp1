@@ -1,4 +1,5 @@
 import { MapPin, Navigation } from "lucide-react";
+import fogoFachada from "@/assets/fogo-de-chao-fachada.webp";
 
 const directionsUrl =
   "https://www.google.com/maps/dir/-22.8772091,-43.0863537/Fogo+de+Ch%C3%A3o,+Av.+Reporter+Nestor+Moreira,+S%2FN+-+Botafogo,+Rio+de+Janeiro+-+RJ,+22290-210/@-22.9093105,-43.2346177,32527m/data=!3m2!1e3!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x997ff1451e2ddf:0x42a8cedf0c582d46!2m2!1d-43.1803052!2d-22.9487718?entry=ttu&g_ep=EgoyMDI2MDUwNi4wIKXMDSoASAFQAw%3D%3D";
@@ -57,15 +58,29 @@ const Location = () => (
           </a>
         </div>
 
-        <div className="lg:col-span-3 rounded-xl overflow-hidden border border-border bg-card/80 min-h-[320px] lg:min-h-[420px]">
-          <iframe
-            title="Mapa Fogo de Chão Botafogo"
-            src={embedUrl}
-            className="w-full h-full min-h-[320px] lg:min-h-[420px]"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+        <div className="lg:col-span-3 flex flex-col gap-6">
+          <div className="rounded-xl overflow-hidden border border-border bg-card/80 relative aspect-[16/9]">
+            <img
+              src={fogoFachada}
+              alt="Fachada do Restaurante Fogo de Chão · Botafogo, Rio de Janeiro, à noite"
+              loading="lazy"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-4 right-4 text-xs sm:text-sm text-foreground/90 font-medium">
+              Fogo de Chão · Botafogo, Rio de Janeiro
+            </div>
+          </div>
+          <div className="rounded-xl overflow-hidden border border-border bg-card/80 min-h-[260px] lg:min-h-[280px]">
+            <iframe
+              title="Mapa Fogo de Chão Botafogo"
+              src={embedUrl}
+              className="w-full h-full min-h-[260px] lg:min-h-[280px]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
         </div>
       </div>
     </div>
