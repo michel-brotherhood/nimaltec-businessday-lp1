@@ -5,11 +5,14 @@ const VideoBackground = () => {
     <div className="fixed inset-0 z-0 bg-black overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         <video
-        autoPlay 
-        loop 
-        muted 
+        autoPlay
+        loop
+        muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        preload="auto"
+        disablePictureInPicture
+        controls={false}
+        className="absolute inset-0 w-full h-full object-cover opacity-60 will-change-transform"
       >
         <source src={backgroundVideo} type="video/mp4" />
       </video>
