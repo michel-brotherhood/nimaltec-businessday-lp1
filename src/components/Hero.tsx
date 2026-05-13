@@ -90,10 +90,11 @@ const Hero = () => {
           <RegisterButton />
         </div>
 
-        {/* Inline anchor nav for mobile + tablet */}
-        <div className="lg:hidden absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-6 flex justify-center w-auto">
-          <NavPill active={active} />
-        </div>
+      </div>
+
+      {/* Anchor nav fixed at bottom of hero on mobile + tablet */}
+      <div className="lg:hidden absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-6 z-30 flex justify-center">
+        <NavPill active={active} />
       </div>
     </section>
   );
