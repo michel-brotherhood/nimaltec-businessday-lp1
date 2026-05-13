@@ -68,9 +68,9 @@ const Hero = () => {
         </p>
 
         <div className="flex items-center justify-center gap-5 sm:gap-7 md:gap-10 mb-8 sm:mb-10 md:mb-12 flex-wrap">
-          <img src={nimalLogo} alt="Nimal Tecnologia" className="h-9 sm:h-11 md:h-14 lg:h-14 object-contain" />
-          <div className="w-px h-9 sm:h-11 md:h-14 bg-white/60 hidden sm:block" />
-          <img src={zebraLogo} alt="Zebra" className="h-7 sm:h-9 md:h-12 lg:h-12 object-contain brightness-0 invert" />
+          <img src={nimalLogo} alt="Nimal Tecnologia" className="h-12 sm:h-14 md:h-18 lg:h-20 object-contain" />
+          <div className="w-px h-12 sm:h-14 md:h-18 lg:h-20 bg-white/60 hidden sm:block" />
+          <img src={zebraLogo} alt="Zebra" className="h-10 sm:h-12 md:h-16 lg:h-16 object-contain brightness-0 invert" />
         </div>
 
         <h1
@@ -79,7 +79,7 @@ const Hero = () => {
           }`}
         >
           <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
-            Nimal &amp; Zebra 2026
+            Business Day 2026
           </span>
           <span className="block mt-3 sm:mt-4 md:mt-5 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary tracking-tight">
             IA aplicada à operação
