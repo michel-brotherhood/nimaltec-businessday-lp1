@@ -1,4 +1,4 @@
-import { MapPin, Navigation, Clock, ParkingSquare } from "lucide-react";
+import { MapPin, Navigation, Clock, ParkingSquare, Calendar, Utensils, Shirt, Ticket } from "lucide-react";
 import fogoFachada from "@/assets/fogo-de-chao-fachada.webp";
 
 const directionsUrl =
@@ -68,6 +68,41 @@ const Location = () => (
               <p className="text-sm text-muted-foreground">
                 <strong className="text-foreground/90 font-medium block">Recomendação de chegada</strong>
                 Até 11h45 para credenciamento tranquilo.
+              </p>
+            </div>
+          </div>
+
+          {/* Event details grid */}
+          <div className="relative z-10 pt-5 border-t border-border">
+            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-3">
+              Detalhes do evento
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-lg bg-white/5 border border-border p-3">
+                <Calendar className="w-4 h-4 text-primary mb-1.5" />
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Data</p>
+                <p className="text-sm font-semibold text-foreground leading-tight">30 · Junho · 2026</p>
+              </div>
+              <div className="rounded-lg bg-white/5 border border-border p-3">
+                <Clock className="w-4 h-4 text-primary mb-1.5" />
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Horário</p>
+                <p className="text-sm font-semibold text-foreground leading-tight">12h às 15h</p>
+              </div>
+              <div className="rounded-lg bg-white/5 border border-border p-3">
+                <Utensils className="w-4 h-4 text-primary mb-1.5" />
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Formato</p>
+                <p className="text-sm font-semibold text-foreground leading-tight">Almoço executivo</p>
+              </div>
+              <div className="rounded-lg bg-white/5 border border-border p-3">
+                <Shirt className="w-4 h-4 text-primary mb-1.5" />
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Dress code</p>
+                <p className="text-sm font-semibold text-foreground leading-tight">Business casual</p>
+              </div>
+            </div>
+            <div className="mt-3 flex items-center gap-2 rounded-lg bg-primary/5 border border-primary/20 px-3 py-2">
+              <Ticket className="w-4 h-4 text-primary shrink-0" />
+              <p className="text-xs text-foreground/80">
+                <span className="font-semibold text-primary">Por convite</span> · Vagas limitadas para conversas qualificadas.
               </p>
             </div>
           </div>
