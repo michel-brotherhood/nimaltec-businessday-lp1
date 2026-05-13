@@ -36,7 +36,7 @@ const Hero = () => {
   const active = useActiveSection();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden pb-28 sm:pb-32 lg:pb-0">
       {/* Soft top/bottom gradient for legibility of corner cards */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/70" />
 
@@ -63,10 +63,10 @@ const Hero = () => {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <div className="flex items-center justify-center gap-5 sm:gap-7 md:gap-10 mb-8 sm:mb-10 md:mb-12 flex-wrap">
-          <img src={nimalLogo} alt="Nimal Tecnologia" className="h-12 sm:h-14 md:h-18 lg:h-20 object-contain" />
-          <div className="w-px h-12 sm:h-14 md:h-18 lg:h-20 bg-white/60 hidden sm:block" />
-          <img src={zebraLogo} alt="Zebra" className="h-10 sm:h-12 md:h-16 lg:h-16 object-contain brightness-0 invert" />
+        <div className="flex items-center justify-center gap-4 sm:gap-7 md:gap-10 mb-8 sm:mb-10 md:mb-12 flex-nowrap">
+          <img src={nimalLogo} alt="Nimal Tecnologia" className="h-12 sm:h-14 md:h-18 lg:h-20 object-contain shrink-0" />
+          <div className="w-px h-10 sm:h-14 md:h-18 lg:h-20 bg-white/60" />
+          <img src={zebraLogo} alt="Zebra" className="h-9 sm:h-12 md:h-16 lg:h-16 object-contain shrink-0 brightness-0 invert" />
         </div>
 
         <h1
@@ -91,7 +91,7 @@ const Hero = () => {
         </div>
 
         {/* Inline anchor nav for mobile + tablet */}
-        <div className="lg:hidden mt-7 sm:mt-10 md:mt-12 flex justify-center">
+        <div className="lg:hidden absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-6 flex justify-center w-auto">
           <NavPill active={active} />
         </div>
       </div>
