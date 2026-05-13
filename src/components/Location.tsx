@@ -1,4 +1,4 @@
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin, Navigation, Clock, ParkingSquare } from "lucide-react";
 import fogoFachada from "@/assets/fogo-de-chao-fachada.webp";
 
 const directionsUrl =
@@ -23,39 +23,73 @@ const Location = () => (
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
-        <div className="lg:col-span-2 bg-card/80 backdrop-blur-md border border-border rounded-xl p-6 sm:p-8 flex flex-col justify-between">
-          <div>
-            <div className="flex items-start gap-3 mb-5">
-              <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Endereço</p>
-                <p className="text-base sm:text-lg font-semibold text-foreground leading-tight">
-                  Restaurante Fogo de Chão
-                </p>
-                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                  Av. Repórter Nestor Moreira, S/N<br />
-                  Botafogo · Rio de Janeiro/RJ<br />
-                  CEP 22290-210
-                </p>
-              </div>
-            </div>
+        <div className="lg:col-span-2 relative overflow-hidden bg-card/80 backdrop-blur-md border border-border rounded-2xl p-6 sm:p-8 flex flex-col gap-7">
+          {/* Decorative glow */}
+          <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl" />
 
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-              Estacionamento disponível no local. Recomendamos chegar até 11h45 para um credenciamento tranquilo.
-            </p>
+          {/* Header */}
+          <div className="relative z-10 flex items-start gap-4">
+            <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_15px_rgba(204,255,0,0.1)]">
+              <MapPin className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <span className="block text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground mb-1">
+                Endereço
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-tight">
+                Restaurante Fogo de Chão
+              </h3>
+            </div>
           </div>
 
+          {/* Address */}
+          <div className="relative z-10">
+            <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
+              Av. Repórter Nestor Moreira, S/N
+              <br />
+              <span className="text-muted-foreground">Botafogo · Rio de Janeiro/RJ</span>
+            </p>
+            <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-border">
+              <span className="text-xs font-mono text-muted-foreground">CEP 22290-210</span>
+            </div>
+          </div>
+
+          {/* Logistics */}
+          <div className="relative z-10 space-y-4 pt-5 border-t border-border">
+            <div className="flex items-start gap-3 group">
+              <ParkingSquare className="w-5 h-5 mt-0.5 text-primary/60 group-hover:text-primary transition-colors shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground/90 font-medium block">Estacionamento</strong>
+                Disponível no local para convidados.
+              </p>
+            </div>
+            <div className="flex items-start gap-3 group">
+              <Clock className="w-5 h-5 mt-0.5 text-primary/60 group-hover:text-primary transition-colors shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground/90 font-medium block">Recomendação de chegada</strong>
+                Até 11h45 para credenciamento tranquilo.
+              </p>
+            </div>
+          </div>
+
+          {/* CTA */}
           <a
             href={directionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg hover:bg-primary/90 hover:shadow-[0_0_25px_rgba(204,255,0,0.45)] transition-all"
+            className="relative z-10 mt-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold px-6 py-4 rounded-xl hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_10px_30px_rgba(204,255,0,0.15)]"
           >
             <Navigation className="w-4 h-4" />
             Como chegar
           </a>
+
+          {/* Decorative pattern */}
+          <div className="pointer-events-none absolute bottom-0 right-0 p-4 opacity-[0.04]">
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" className="text-foreground" />
+              <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="1" className="text-foreground" />
+            </svg>
+          </div>
         </div>
 
         <div className="lg:col-span-3 flex flex-col gap-6">
