@@ -77,10 +77,24 @@ const Hero = () => {
           <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
             Business Day 2026
           </span>
-          <span className="block mt-3 sm:mt-4 md:mt-5 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-primary tracking-tight">
-            IA aplicada à operação
-          </span>
         </h1>
+
+        <div className="flex justify-center mb-6 sm:mb-7 md:mb-8">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-primary opacity-15 blur-xl rounded-full" />
+            <div className="relative flex items-center gap-3 px-5 py-2 bg-black/40 backdrop-blur-xl border border-primary/20 rounded-full shadow-[0_0_20px_hsl(var(--primary)/0.08)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-40" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-primary font-medium">
+                IA aplicada à operação
+              </span>
+              <div className="h-3 w-px bg-primary/30 ml-1" />
+              <span className="text-[10px] text-primary/40 font-mono">v2.6</span>
+            </div>
+          </div>
+        </div>
 
         <p className="text-xs sm:text-sm md:text-base text-muted-foreground/60 max-w-md sm:max-w-lg md:max-w-2xl mx-auto [text-wrap:balance] leading-relaxed mb-7 sm:mb-9 md:mb-10">
           Não é só sobre coletar dados. É sobre transformar dados em decisões.
