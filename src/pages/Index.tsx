@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero";
+import Invitation from "@/components/Invitation";
+import AIOperation from "@/components/AIOperation";
 import Schedule from "@/components/Schedule";
 import Devices from "@/components/Devices";
 import Statistics from "@/components/Statistics";
