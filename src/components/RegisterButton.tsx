@@ -17,11 +17,10 @@ const RegisterButton = ({ className = "", label = "Faça sua inscrição" }: Pro
         aria-label="Faça sua inscrição no Business Day Nimal & Zebra 2026"
         className={`group relative inline-block rounded-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${className}`}
       >
-        {/* Pulse rings */}
-        <span className="pointer-events-none absolute inset-0 rounded-full bg-primary/40 animate-ping opacity-60" aria-hidden="true" />
+        {/* Pulse ring (suave) */}
         <span
-          className="pointer-events-none absolute inset-0 rounded-full bg-primary/30 animate-ping opacity-40"
-          style={{ animationDelay: "0.6s" }}
+          className="pointer-events-none absolute inset-0 rounded-full bg-primary/15 animate-ping opacity-30"
+          style={{ animationDuration: "2.4s" }}
           aria-hidden="true"
         />
 
