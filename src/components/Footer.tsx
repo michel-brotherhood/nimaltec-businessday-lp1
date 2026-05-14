@@ -112,13 +112,14 @@ const Footer = () => {
           {/* Credits Section */}
           <div className="text-center md:text-right">
             <p className="text-muted-foreground text-sm mb-2">
-              <a 
-                href="https://nimaltecnologia.com.br" 
-                target="_blank" 
+              Desenvolvido por{" "}
+              <a
+                href="https://idlab.art.br"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary font-semibold hover:text-primary/80 transition-colors"
               >
-                Desenvolvido por Nimal Tecnologia
+                Michel Brotherhood
               </a>
             </p>
             <p className="text-muted-foreground text-sm">
