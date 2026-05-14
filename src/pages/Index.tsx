@@ -19,6 +19,8 @@ const Index = () => {
       <AnchorNav />
       <div className="relative z-10">
         <section id="hero"><Hero /></section>
+        <section id="convite"><Invitation /></section>
+        <section id="ia-operacao"><AIOperation /></section>
         <section id="agenda"><Schedule /></section>
         <section id="dispositivos"><Devices /></section>
         <section id="numeros"><Statistics /></section>
