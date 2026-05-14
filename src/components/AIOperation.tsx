@@ -94,18 +94,79 @@ const AIOperation = () => {
             />
           </div>
 
-          {/* Center IA circle */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          {/* Center IA orb (3D) */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 [perspective:1000px]">
             <div
-              className={`relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-primary text-primary-foreground flex flex-col items-center justify-center shadow-[0_0_60px_hsl(var(--primary)/0.6)] transition-all duration-700 ${
-                isVisible ? "scale-100 opacity-100" : "scale-50 opacity-0"
+              className={`group relative transition-all duration-1000 ${
+                isVisible ? "scale-100 opacity-100 rotate-0" : "scale-50 opacity-0 -rotate-12"
               }`}
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="absolute inset-0 rounded-full bg-primary blur-2xl opacity-50 -z-10" />
-              <span className="text-4xl sm:text-5xl md:text-6xl font-black leading-none">IA</span>
-              <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.2em] mt-1 sm:mt-2">
-                NA OPERAÇÃO
-              </span>
+              {/* Outer halo */}
+              <div className="absolute -inset-6 rounded-full bg-primary/30 blur-3xl opacity-70 animate-pulse-slow" />
+
+              {/* Rotating conic ring */}
+              <div
+                className="absolute -inset-3 rounded-full opacity-80"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, hsl(var(--primary)) 0%, transparent 25%, hsl(var(--primary)) 50%, transparent 75%, hsl(var(--primary)) 100%)",
+                  animation: "spin 8s linear infinite",
+                  filter: "blur(6px)",
+                }}
+              />
+
+              {/* 3D sphere */}
+              <div
+                className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full flex flex-col items-center justify-center overflow-hidden transition-transform duration-500 group-hover:scale-105"
+                style={{
+                  background:
+                    "radial-gradient(circle at 30% 25%, hsl(72 100% 75%) 0%, hsl(72 100% 50%) 35%, hsl(72 100% 32%) 75%, hsl(72 100% 18%) 100%)",
+                  boxShadow:
+                    "inset -12px -16px 40px rgba(0,0,0,0.55), inset 10px 14px 30px rgba(255,255,255,0.35), 0 25px 60px hsl(var(--primary) / 0.55), 0 0 80px hsl(var(--primary) / 0.5)",
+                }}
+              >
+                {/* Top specular highlight */}
+                <div
+                  className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[60%] h-[28%] rounded-[50%] pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.25) 45%, transparent 75%)",
+                    filter: "blur(2px)",
+                  }}
+                />
+                {/* Bottom inner shadow */}
+                <div
+                  className="absolute bottom-0 inset-x-0 h-[55%] rounded-b-full pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.45) 0%, transparent 65%)",
+                  }}
+                />
+                {/* Rim light */}
+                <div
+                  className="absolute inset-0 rounded-full pointer-events-none"
+                  style={{
+                    boxShadow: "inset 0 0 1px 1px rgba(255,255,255,0.35)",
+                  }}
+                />
+
+                <span
+                  className="relative text-4xl sm:text-5xl md:text-6xl font-black leading-none text-primary-foreground"
+                  style={{ textShadow: "0 2px 4px rgba(0,0,0,0.4)" }}
+                >
+                  IA
+                </span>
+                <span
+                  className="relative text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.2em] mt-1 sm:mt-2 text-primary-foreground/90"
+                  style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}
+                >
+                  NA OPERAÇÃO
+                </span>
+              </div>
+
+              {/* Ground shadow */}
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-[80%] h-4 rounded-full bg-black/60 blur-xl" />
             </div>
           </div>
 
