@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "Haverá demonstrações dos produtos Zebra?",
-    a: "Sim. Mostraremos ao vivo os coletores MC33 e MC34, além de cenários de uso com RFID, automação e a camada de IA aplicada à operação. Mostraremos as novidades da Zebra com equipamentos que suportam IA para 2026.",
+    a: "Mostraremos as novidades da Zebra com equipamentos que suportam IA para 2026.",
   },
 ];
 
