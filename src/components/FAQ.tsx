@@ -22,8 +22,8 @@ const faqs = [
     a: "Business casual. O ambiente é executivo, mas confortável para um almoço de relacionamento.",
   },
   {
-    q: "Haverá demonstrações dos produtos Zebra?",
-    a: "Mostraremos as novidades da Zebra com equipamentos que suportam IA para 2026.",
+    q: "Mostraremos as novidades da Zebra com equipamentos que suportam IA para 2026.",
+    a: "",
   },
 ];
 
