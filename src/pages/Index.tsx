@@ -1,4 +1,6 @@
 import Hero from "@/components/Hero";
+import Invitation from "@/components/Invitation";
+import AIOperation from "@/components/AIOperation";
 import Schedule from "@/components/Schedule";
 import Devices from "@/components/Devices";
 import Statistics from "@/components/Statistics";
@@ -17,6 +19,8 @@ const Index = () => {
       <AnchorNav />
       <div className="relative z-10">
         <section id="hero"><Hero /></section>
+        <section id="convite"><Invitation /></section>
+        <section id="ia-operacao"><AIOperation /></section>
         <section id="agenda"><Schedule /></section>
         <section id="dispositivos"><Devices /></section>
         <section id="numeros"><Statistics /></section>
