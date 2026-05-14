@@ -43,16 +43,25 @@ const FAQ = () => (
       </div>
 
       <Accordion type="single" collapsible className="bg-card/80 backdrop-blur-md border border-border rounded-xl px-4 sm:px-6 md:px-8">
-        {faqs.map((f, i) => (
-          <AccordionItem key={i} value={`item-${i}`} className="border-border last:border-0">
-            <AccordionTrigger className="text-left text-base sm:text-lg md:text-xl font-semibold text-foreground hover:no-underline hover:text-primary py-5 md:py-6">
+        {faqs.map((f, i) =>
+          f.a ? (
+            <AccordionItem key={i} value={`item-${i}`} className="border-border last:border-0">
+              <AccordionTrigger className="text-left text-base sm:text-lg md:text-xl font-semibold text-foreground hover:no-underline hover:text-primary py-5 md:py-6">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-relaxed pb-5 md:pb-6">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
+          ) : (
+            <div
+              key={i}
+              className="border-t border-border py-5 md:py-6 text-base sm:text-lg md:text-xl font-semibold text-foreground"
+            >
               {f.q}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm sm:text-base md:text-[17px] text-muted-foreground leading-relaxed pb-5 md:pb-6">
-              {f.a}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+            </div>
+          )
+        )}
       </Accordion>
     </div>
   </section>
