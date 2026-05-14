@@ -74,7 +74,7 @@ const Hero = () => {
             isVisible ? "drop-shadow-[0_0_25px_rgba(204,255,0,0.35)]" : ""
           }`}
         >
-          <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
+          <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent animate-pulse-slow tracking-tight pb-1">
             Business Day 2026
           </span>
         </h1>
@@ -87,11 +87,9 @@ const Hero = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-40" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-primary font-medium">
+              <span className="font-mono text-sm sm:text-base md:text-lg uppercase tracking-[0.25em] text-primary font-medium">
                 IA aplicada à operação
               </span>
-              <div className="h-3 w-px bg-primary/30 ml-1" />
-              <span className="text-[10px] text-primary/40 font-mono">v2.6</span>
             </div>
           </div>
         </div>
